@@ -94,7 +94,7 @@ const experience = [
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen pt-24 md:pt-32 px-6 md:px-12 pb-24">
+    <div className="relative pt-24 md:pt-32 px-6 md:px-12 pb-12 md:pb-24">
       <DotGrid showDots={false} />
       <div className="max-w-6xl mx-auto">
         {/* Header */}

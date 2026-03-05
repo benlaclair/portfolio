@@ -22,7 +22,7 @@ export default async function ProjectPage({
   const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
 
   return (
-    <div className="relative min-h-screen pt-32 pb-24">
+    <div className="relative pt-24 md:pt-32 pb-12 md:pb-24">
       <DotGrid showDots={false} />
       {/* Header */}
       <div className="px-6 md:px-12 mb-12 fade-up">

@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-white/8 mt-24 px-6 py-8 md:px-12">
+    <footer className="border-t border-white/8 mt-12 md:mt-24 px-6 py-8 md:px-12">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-sm text-muted">
           ben<span className="text-grad font-bold">.</span> · 2026 — Made from scratch
