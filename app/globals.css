@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #080B0F;
+  --color-surface: #161C23;
+  --color-ink: #F0F4F8;
+  --color-muted: #A8B5C4;
+  --color-lime: #00DFFF;
+  --color-coral: #00F5E9;
+  --color-violet: #0090C8;
+  --font-sans: var(--font-jakarta);
+}
+
+body {
+  background-color: #080B0F;
+  color: #F0F4F8;
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Hero dot grid — rendered by canvas in HeroSection.tsx */
+
+/* Gradient accent utilities — brighter (#00DFFF) → darker (#0090C8) left to right */
+@layer utilities {
+  .text-grad {
+    background: linear-gradient(to right, #00DFFF, #0090C8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bg-grad {
+    background: linear-gradient(to right, #00DFFF, #0090C8);
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+/* Project cover — alternating row drift */
+@keyframes driftRight {
+  from { transform: translateX(0px);    }
+  to   { transform: translateX(300px);  }
+}
+@keyframes driftLeft {
+  from { transform: translateX(0px);    }
+  to   { transform: translateX(-300px); }
+}
+.cover-drift-right {
+  animation: driftRight 8s linear infinite;
+}
+.cover-drift-left {
+  animation: driftLeft 8s linear infinite;
+}
+
+/* Navbar entrance */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+.fade-down { animation: fadeDown 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* Page entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.fade-up   { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+.fade-up-1 { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.12s both; }
+.fade-up-2 { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.24s both; }
+.fade-up-3 { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.36s both; }
+
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-25%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+}
