@@ -25,26 +25,48 @@ const skills = [
 const experience = [
   {
     role: "Graphic / AI Designer",
-    org: "Market Mentors LLC — Springfield, MA",
+    org: "Market Mentors LLC. — Springfield, MA",
     period: "Aug 2026 – Present",
     type: "work",
     bullets: [
-      "Utilizing Generative AI platforms for graphic, video, and web development",
-      "Spearheading UX/UI redesigns for new and existing clients",
-      "Meeting social, print, and digital needs for 40+ clients",
-      "Creating design systems and atomic design standards for client branding",
+      "Utilizing evolving Generative AI platforms for graphic, video, and web development purposes",
+      "Spearheading problem solving UX/UI redesigns for new and existing clients",
+      "Meeting social, print, and digital graphic needs for over 40 clients",
+      "Creating design systems and atomic design standards for developing client branding",
     ],
   },
   {
-    role: "UX/UI Analyst & CMS Web Development Intern",
+    role: "X/UI Analyst, CMS Web Development and Graphic Design Intern",
     org: "Metropolitan YMCA of New Jersey — Maplewood, NJ",
     period: "Apr 2024 – Jun 2025",
     type: "work",
     bullets: [
-      "Redesigned 4+ childcare program sites, boosting engagement by 30%",
-      "Scored 90+ on Lighthouse audits for accessibility, SEO, and performance",
-      "Integrated Google Analytics & Tag Manager (+15% conversions)",
-      "Created 12 infographics that increased social engagement by up to 40%",
+      "Helped analyze user flow and experience on 4+ childcare and event sites",
+      "Created infographics, logos, and t-shirt designs that increased social media engagement by up to",
+      "Lead the creation of 2 new CMS centered websites, collecting organizing and designing around data",
+    ],
+  },
+  {
+    role: "Multimedia Designer & WordPress Developer",
+    org: "The Gazelle Group — Princeton, NJ",
+    period: "Aug 2023 – Apr 2024",
+    type: "work",
+    bullets: [
+      "Designed branded assets and signage for 5+ ESPN-affiliated tournaments, ensuring consistency across media kits, ads, and live updates",
+      "Created 150+ real-time social posts, driving 10,000+ interactions and boosting fan engagement",
+      "Built reusable Adobe components and led responsive updates on 11 WordPress sites, increasing efficiency and generating 2,500+ new visits",
+      "Ran A/B testing on CTAs, improving click-through rates by 10%",
+    ],
+  },
+  {
+    role: "Graphic Design Intern",
+    org: "Sweet Sign Systems — Jackson, NJ",
+    period: "Jun 2020 – Jul 2023",
+    type: "work",
+    bullets: [
+      "Designed install guides for 30+ signage projects, reducing field errors",
+      "Standardized layout templates to improve consistency across 30+ designs",
+      "Installed signage at 10+ client sites, earning a 95% client satisfaction rate",
     ],
   },
   {
@@ -53,18 +75,6 @@ const experience = [
     period: "Feb 2024 – Feb 2025",
     type: "education",
     bullets: [],
-  },
-  {
-    role: "Multimedia Designer & WordPress Developer",
-    org: "The Gazelle Group — Princeton, NJ",
-    period: "Aug 2023 – Apr 2024",
-    type: "work",
-    bullets: [
-      "Designed assets for 5+ ESPN-affiliated tournaments across media kits and ads",
-      "Created 150+ real-time social posts driving 10,000+ interactions",
-      "Led responsive updates on 11 WordPress sites, generating 2,500+ new visits",
-      "Ran A/B testing on CTAs, improving click-through rates by 10%",
-    ],
   },
   {
     role: "Certificate in Information Technology",
@@ -79,17 +89,6 @@ const experience = [
     period: "Aug 2018 – May 2022",
     type: "education",
     bullets: [],
-  },
-  {
-    role: "Graphic Design Intern",
-    org: "Sweet Sign Systems — Jackson, NJ",
-    period: "Jun 2020 – Jul 2023",
-    type: "work",
-    bullets: [
-      "Designed install guides for 30+ signage projects, reducing field errors by 20%",
-      "Standardized layout templates across 30+ designs",
-      "Earned 95% client satisfaction rate across 10+ site installations",
-    ],
   },
 ];
 
