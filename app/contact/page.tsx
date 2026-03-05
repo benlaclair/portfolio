@@ -4,7 +4,7 @@ import ContactForm from "@/components/ContactForm";
 import DotGrid from "@/components/DotGrid";
 
 const socials = [
-  { name: "LinkedIn", href: "https://linkedin.com/in/benlaclair" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/benlaclair" },
 ];
 
 export default function ContactPage() {
