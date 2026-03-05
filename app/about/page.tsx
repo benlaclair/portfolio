@@ -145,9 +145,11 @@ export default function AboutPage() {
               </Link>
               <a
                 href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="border-2 border-white/20 text-ink font-bold px-6 py-3 rounded-full text-sm hover:border-white transition-colors"
               >
-                Download CV
+                View Resume
               </a>
             </div>
           </div>
