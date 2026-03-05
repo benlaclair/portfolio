@@ -368,9 +368,17 @@ function DesignSection({
                 className="relative"
               >
                 {/* Sticky collapse button */}
+                {/* Mobile: fixed bottom collapse button */}
                 <button
                   onClick={collapse}
-                  className="sticky top-20 z-20 float-right ml-4 mb-4 px-4 py-2 rounded-full bg-surface border border-white/10 text-xs font-bold uppercase tracking-wider text-muted hover:text-ink hover:border-lime transition-colors cursor-pointer backdrop-blur-sm shadow-lg"
+                  className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full bg-surface border border-white/10 text-xs font-bold uppercase tracking-wider text-muted hover:text-ink hover:border-lime transition-colors cursor-pointer backdrop-blur-sm shadow-lg"
+                >
+                  Collapse ×
+                </button>
+                {/* Desktop: sticky float collapse button */}
+                <button
+                  onClick={collapse}
+                  className="hidden md:block sticky top-20 z-20 float-right ml-4 mb-4 px-4 py-2 rounded-full bg-surface border border-white/10 text-xs font-bold uppercase tracking-wider text-muted hover:text-ink hover:border-lime transition-colors cursor-pointer backdrop-blur-sm shadow-lg"
                 >
                   Collapse ×
                 </button>

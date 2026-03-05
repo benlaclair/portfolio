@@ -356,8 +356,7 @@ export default function HeroSection() {
           UX/UI & Graphic Designer
         </p>
         <p className="text-base text-muted mt-2 max-w-sm leading-relaxed">
-          5+ years crafting user-centered design — from<br />
-          brand identity to full digital experiences.
+          5+ years crafting user-centered design — from brand identity to full digital experiences.
         </p>
 
         <motion.div
@@ -370,16 +369,16 @@ export default function HeroSection() {
           Open to work
         </motion.div>
 
-        <div className="flex gap-3 flex-wrap mt-4">
+        <div className="flex flex-col md:flex-row gap-3 mt-4">
           <Link
             href="/work"
-            className="inline-flex items-center justify-center bg-grad text-[#080B0F] font-bold px-7 py-3.5 rounded-full text-sm hover:bg-white transition-colors duration-300"
+            className="inline-flex items-center justify-center bg-grad text-[#080B0F] font-bold px-7 py-3.5 rounded-full text-sm hover:bg-white transition-colors duration-300 w-full md:w-auto"
           >
             View Work →
           </Link>
           <Link
             href="/about"
-            className="inline-flex items-center justify-center border-2 border-white/20 text-ink font-bold px-7 py-3.5 rounded-full text-sm hover:bg-white/10 transition-all duration-300"
+            className="inline-flex items-center justify-center border-2 border-white/20 text-ink font-bold px-7 py-3.5 rounded-full text-sm hover:bg-white/10 transition-all duration-300 w-full md:w-auto"
           >
             About Me
           </Link>

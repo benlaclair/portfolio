@@ -41,14 +41,14 @@ export default function ContactPage() {
         </div>
 
         {/* Social links */}
-        <div className="flex gap-3 fade-up-2">
+        <div className="flex flex-col md:flex-row gap-3 fade-up-2">
           {socials.map((social) => (
             <a
               key={social.name}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-surface rounded-2xl px-6 py-5 text-center font-extrabold text-ink hover:bg-grad hover:text-[#080B0F] transition-all duration-300 text-base border-2 border-white/8"
+              className="bg-surface rounded-2xl px-6 py-5 text-center font-extrabold text-ink hover:bg-grad hover:text-[#080B0F] transition-all duration-300 text-base border-2 border-white/8 w-full md:w-auto"
             >
               {social.name}
             </a>
