@@ -35,7 +35,7 @@ export default function WorkPage() {
         </div>
 
         {/* Filter chips */}
-        <div className="flex gap-2 mb-12 flex-wrap fade-up-1">
+        <div className="flex gap-2 mb-8 md:mb-12 flex-wrap fade-up-1">
           {filters.map((f) => (
             <button
               key={f}
@@ -54,6 +54,22 @@ export default function WorkPage() {
           </span>
         </div>
 
+        {/* Graphic design link — mobile only, shown before project grid */}
+        <Link
+          href="/work/graphic-design"
+          className="md:hidden group flex items-center justify-between bg-surface border border-white/8 rounded-2xl px-5 py-4 hover:border-white/20 transition-all duration-300 mb-8 fade-up-1"
+        >
+          <div>
+            <p className="text-base font-extrabold text-ink group-hover:text-grad transition-colors">
+              Graphic Design
+            </p>
+            <p className="text-xs text-muted">
+              Social media, print, brand assets & more
+            </p>
+          </div>
+          <span className="text-xl text-muted group-hover:text-ink transition-colors ml-4">→</span>
+        </Link>
+
         {/* Projects grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-up-2">
           <AnimatePresence mode="wait">
@@ -71,14 +87,14 @@ export default function WorkPage() {
           </AnimatePresence>
         </div>
 
-        {/* Graphic design gallery link */}
-        <div className="mt-10 pt-6 md:mt-20 md:pt-12 border-t border-white/8 fade-up-3">
+        {/* Graphic design gallery link — desktop only, at bottom */}
+        <div className="hidden md:block mt-20 pt-12 border-t border-white/8 fade-up-3">
           <p className="text-xs font-bold tracking-[0.2em] text-muted uppercase mb-4">
             Also
           </p>
           <Link
             href="/work/graphic-design"
-            className="group flex items-center justify-between bg-surface border border-white/8 rounded-2xl px-5 py-4 md:px-8 md:py-6 hover:border-white/20 transition-all duration-300"
+            className="group flex items-center justify-between bg-surface border border-white/8 rounded-2xl px-8 py-6 hover:border-white/20 transition-all duration-300"
           >
             <div>
               <p className="text-xl font-extrabold text-ink mb-1 group-hover:text-grad transition-colors">
