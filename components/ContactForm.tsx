@@ -2,57 +2,86 @@
 
 import { useState } from "react";
 
+const FORMSPREE_ID = "xojkaqeb";
+
 const inputClass =
   "w-full bg-surface border-2 border-white/10 rounded-xl px-5 py-3.5 text-ink placeholder:text-muted text-sm font-medium focus:outline-none focus:border-lime transition-colors";
 
 export default function ContactForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
-    const body = encodeURIComponent(
-      `Hi Ben,\n\n${message}\n\nFrom: ${name}\nEmail: ${email}`
-    );
-    window.location.href = `mailto:your@email.com?subject=${subject}&body=${body}`;
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
+
+  if (status === "sent") {
+    return (
+      <div className="bg-surface border-2 border-lime/30 rounded-xl px-8 py-12 text-center">
+        <p className="text-2xl font-extrabold text-ink mb-2">Message sent!</p>
+        <p className="text-sm text-muted">I&apos;ll get back to you soon.</p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {/* Honeypot — hidden from humans, bots fill it and get rejected */}
+      <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
+          name="name"
           placeholder="Your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
           required
           className={inputClass}
         />
         <input
           type="email"
+          name="email"
           placeholder="your@email.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           required
           className={inputClass}
         />
       </div>
       <textarea
+        name="message"
         placeholder="Tell me about your project..."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
         required
         rows={6}
         className={`${inputClass} resize-none`}
       />
       <button
         type="submit"
-        className="w-full md:w-auto self-start bg-grad text-[#080B0F] font-extrabold px-8 py-4 rounded-full hover:bg-white transition-colors duration-300 text-sm"
+        disabled={status === "sending"}
+        className="w-full md:w-auto self-start bg-grad text-[#080B0F] font-extrabold px-8 py-4 rounded-full hover:bg-white transition-colors duration-300 text-sm disabled:opacity-50"
       >
-        Send it ✦
+        {status === "sending" ? "Sending..." : "Send it ✦"}
       </button>
+      {status === "error" && (
+        <p className="text-sm text-red-400">Something went wrong. Please try again.</p>
+      )}
     </form>
   );
 }
