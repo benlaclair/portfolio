@@ -75,10 +75,10 @@ export default function WorkSlider() {
       </div>
 
       <div className="max-w-6xl mx-auto">
-        <Link href="/work" className="block group">
+        <Link href="/work" className="block group cursor-pointer">
         <div
           ref={scrollRef}
-          className="overflow-x-auto scrollbar-hide select-none pointer-events-none rounded-xl relative"
+          className="overflow-x-auto scrollbar-hide select-none pointer-events-none rounded-xl relative transition-transform duration-300 group-hover:scale-[1.02]"
         >
           <div ref={innerRef} className="flex gap-6" style={{ willChange: "transform" }}>
             {[0, 1, 2].map((copy) =>
