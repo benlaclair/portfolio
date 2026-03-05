@@ -373,13 +373,13 @@ export default function HeroSection() {
         <div className="flex gap-3 flex-wrap mt-4">
           <Link
             href="/work"
-            className="bg-grad text-[#080B0F] font-extrabold px-7 py-3.5 rounded-full text-sm hover:bg-white transition-colors duration-300"
+            className="inline-flex items-center justify-center bg-grad text-[#080B0F] font-bold px-7 py-3.5 rounded-full text-sm hover:bg-white transition-colors duration-300"
           >
             View Work →
           </Link>
           <Link
             href="/about"
-            className="border-2 border-white/20 text-ink font-bold px-7 py-3.5 rounded-full text-sm hover:bg-white/10 transition-all duration-300"
+            className="inline-flex items-center justify-center border-2 border-white/20 text-ink font-bold px-7 py-3.5 rounded-full text-sm hover:bg-white/10 transition-all duration-300"
           >
             About Me
           </Link>
