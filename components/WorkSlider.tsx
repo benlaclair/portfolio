@@ -75,10 +75,10 @@ export default function WorkSlider() {
       </div>
 
       <div className="max-w-6xl mx-auto">
-        <Link href="/work" className="block group cursor-pointer">
+        <Link href="/work" className="block group cursor-pointer relative">
         <div
           ref={scrollRef}
-          className="overflow-x-auto scrollbar-hide select-none pointer-events-none rounded-xl relative transition-transform duration-300 group-hover:scale-[1.02]"
+          className="overflow-x-auto scrollbar-hide select-none pointer-events-none rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
         >
           <div ref={innerRef} className="flex gap-6" style={{ willChange: "transform" }}>
             {[0, 1, 2].map((copy) =>
@@ -125,12 +125,12 @@ export default function WorkSlider() {
               ))
             )}
           </div>
-          {/* Hover overlay */}
-          <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all duration-300 rounded-xl flex items-center justify-center pointer-events-none">
-            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-grad text-[#080B0F] font-extrabold px-6 py-3 rounded-full text-sm shadow-lg">
-              View all projects →
-            </span>
-          </div>
+        </div>
+        {/* Hover overlay — outside scroll container so it stays fixed */}
+        <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all duration-300 rounded-xl flex items-center justify-center pointer-events-none">
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-grad text-[#080B0F] font-extrabold px-6 py-3 rounded-full text-sm shadow-lg">
+            View all projects →
+          </span>
         </div>
         </Link>
       </div>
