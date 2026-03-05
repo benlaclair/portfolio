@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { DESIGN_GROUPS } from "@/data/graphicDesign";
 import DotGrid from "@/components/DotGrid";
@@ -401,14 +402,15 @@ function DesignSection({
               </motion.div>
             )}
           </AnimatePresence>
-          {/* Mobile: fixed bottom collapse button — outside motion.div so fixed positioning works */}
-          {expanded && (
+          {/* Mobile: portal collapse button — portaled to body to escape transform ancestors */}
+          {expanded && typeof document !== "undefined" && createPortal(
             <button
               onClick={collapse}
               className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full bg-surface border border-white/10 text-xs font-bold uppercase tracking-wider text-muted hover:text-ink hover:border-lime transition-colors cursor-pointer backdrop-blur-sm shadow-lg"
             >
               Collapse ×
-            </button>
+            </button>,
+            document.body
           )}
           </>
         ) : (
