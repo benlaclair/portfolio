@@ -9,7 +9,7 @@ const socials = [
 
 export default function ContactPage() {
   return (
-    <div className="relative min-h-screen pt-32 px-6 md:px-12 pb-24">
+    <div className="relative pt-32 px-6 md:px-12 pb-24">
       <DotGrid showDots={false} />
       <div className="max-w-4xl mx-auto">
         {/* Header */}

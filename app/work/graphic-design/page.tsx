@@ -302,6 +302,7 @@ function DesignSection({
 
       <div className="pt-6">
         {hasImages ? (
+          <>
           <AnimatePresence mode="wait">
             {!expanded ? (
               <motion.div
@@ -367,14 +368,6 @@ function DesignSection({
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="relative"
               >
-                {/* Sticky collapse button */}
-                {/* Mobile: fixed bottom collapse button */}
-                <button
-                  onClick={collapse}
-                  className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full bg-surface border border-white/10 text-xs font-bold uppercase tracking-wider text-muted hover:text-ink hover:border-lime transition-colors cursor-pointer backdrop-blur-sm shadow-lg"
-                >
-                  Collapse ×
-                </button>
                 {/* Desktop: sticky float collapse button */}
                 <button
                   onClick={collapse}
@@ -408,6 +401,16 @@ function DesignSection({
               </motion.div>
             )}
           </AnimatePresence>
+          {/* Mobile: fixed bottom collapse button — outside motion.div so fixed positioning works */}
+          {expanded && (
+            <button
+              onClick={collapse}
+              className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full bg-surface border border-white/10 text-xs font-bold uppercase tracking-wider text-muted hover:text-ink hover:border-lime transition-colors cursor-pointer backdrop-blur-sm shadow-lg"
+            >
+              Collapse ×
+            </button>
+          )}
+          </>
         ) : (
           <div className="flex gap-3 overflow-hidden">
             {[...Array(4)].map((_, j) => (
