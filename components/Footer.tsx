@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="border-t border-white/8 mt-24 px-6 py-8 md:px-12">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-sm text-muted">
-          ben<span className="text-grad font-bold">.</span> ✦ 2026 — Made from scratch
+          ben<span className="text-grad font-bold">.</span> · 2026 — Made from scratch
         </p>
         <div className="flex items-center gap-6">
           {[

@@ -18,7 +18,7 @@ export default function ContactPage() {
           Say hello
         </p>
         <h1 className="text-5xl md:text-7xl font-extrabold text-ink tracking-tight mb-4">
-          LET&apos;S TALK<span className="text-grad"> ✦</span>
+          LET&apos;S TALK<span className="text-grad">.</span>
         </h1>
         <p className="text-base text-muted mb-12 max-w-lg leading-relaxed">
           Have a project in mind, want to collaborate, or just want to say hi?

@@ -46,7 +46,7 @@ export default function Navbar() {
             href="/contact"
             className="bg-grad text-[#080B0F] text-sm font-bold px-5 py-2 rounded-full hover:bg-white transition-colors duration-300"
           >
-            Hire me ✦
+            Work with me →
           </Link>
         </nav>
 
@@ -86,7 +86,7 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
             className="bg-grad text-[#080B0F] text-sm font-bold px-5 py-3 rounded-full text-center hover:bg-white transition-colors"
           >
-            Hire me ✦
+            Work with me →
           </Link>
         </div>
       </div>

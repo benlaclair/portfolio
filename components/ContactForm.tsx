@@ -77,7 +77,7 @@ export default function ContactForm() {
         disabled={status === "sending"}
         className="w-full md:w-auto self-start bg-grad text-[#080B0F] font-extrabold px-8 py-4 rounded-full hover:bg-white transition-colors duration-300 text-sm disabled:opacity-50"
       >
-        {status === "sending" ? "Sending..." : "Send it ✦"}
+        {status === "sending" ? "Sending..." : "Send it →"}
       </button>
       {status === "error" && (
         <p className="text-sm text-red-400">Something went wrong. Please try again.</p>

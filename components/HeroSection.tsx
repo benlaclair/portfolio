@@ -293,7 +293,7 @@ export default function HeroSection() {
         transition={{ duration: 0.45 }}
         className="text-xs font-bold tracking-[0.2em] text-muted uppercase mb-4"
       >
-        Portfolio 2026 ✦
+        Portfolio 2026_
       </motion.p>
 
       <motion.h1

@@ -19,7 +19,7 @@ export default function MarqueeBanner() {
               key={`${copy}-${i}`}
               className="text-[#080B0F] font-extrabold text-sm tracking-widest uppercase shrink-0"
             >
-              <span className="opacity-40 mx-6">✦</span>
+              <span className="opacity-40 mx-6">·</span>
               {item}
             </span>
           ))
