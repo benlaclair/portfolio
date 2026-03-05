@@ -36,14 +36,14 @@ const experience = [
     ],
   },
   {
-    role: "X/UI Analyst, CMS Web Development and Graphic Design Intern",
+    role: "UX/UI Analyst, CMS Web Development and Graphic Design Intern",
     org: "Metropolitan YMCA of New Jersey — Maplewood, NJ",
     period: "Apr 2024 – Jun 2025",
     type: "work",
     bullets: [
       "Helped analyze user flow and experience on 4+ childcare and event sites",
-      "Created infographics, logos, and t-shirt designs that increased social media engagement by up to",
-      "Lead the creation of 2 new CMS centered websites, collecting organizing and designing around data",
+      "Created infographics, logos, and t-shirt designs that increased social media engagement",
+      "Led the creation of 2 new CMS centered websites, collecting, organizing and designing around data",
     ],
   },
   {
