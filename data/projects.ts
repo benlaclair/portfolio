@@ -15,6 +15,20 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    slug: 'benlaclair-com',
+    title: 'benlaclair.com — Portfolio',
+    category: 'Both',
+    tags: ['UX/UI Design', 'Web Development', 'Brand Identity'],
+    coverColor: '#00DFFF',
+    description: 'The dark, techy portfolio I always wanted to build — from scratch.',
+    overview: 'My old portfolio was on uxfol.io — a template, bootcamp projects, nothing that felt like me. I rebuilt it from scratch in ~10 hours using Next.js, React, and Claude Code as a dev collaborator. Dark mode everything, glitch effects, cyan gradients, and all the expressive web dev I never get to do in client work.',
+    tools: ['Next.js', 'React', 'Figma', 'Claude Code'],
+    year: '2026',
+    role: 'Designer & Developer',
+    images: [],
+    featured: true,
+  },
+  {
     slug: 'pulse-app',
     title: 'Pulse — Health App',
     category: 'UI/UX',
