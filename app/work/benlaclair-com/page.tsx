@@ -722,13 +722,17 @@ function ExpandedPanel({
     return () => document.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
+  useEffect(() => {
+    if (panelRef.current) {
+      panelRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, []);
+
   return (
     <div
       ref={panelRef}
       className="bg-bg border border-white/10 rounded-2xl overflow-hidden flex flex-col"
-      style={{
-        animation: "fadeUp 0.35s cubic-bezier(0.16,1,0.3,1) 0.15s both",
-      }}
+      style={{ animation: "fadeIn 0.3s ease-out both" }}
     >
       {/* Top bar */}
       <div className="flex items-center justify-between px-5 md:px-6 py-3 border-b border-white/8">
