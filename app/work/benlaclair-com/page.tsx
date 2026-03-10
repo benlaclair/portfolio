@@ -751,7 +751,7 @@ function ExpandedPanel({
       </div>
 
       {/* Demo area */}
-      <div className="relative overflow-hidden h-[280px] md:h-[400px]">
+      <div className="relative overflow-hidden min-h-[280px] md:min-h-[400px]">
         {featureIndex === 0 && <FullGlitchDemo />}
         {featureIndex === 1 && <FullDotGrid />}
         {featureIndex === 2 && <FullGradientDemo />}
