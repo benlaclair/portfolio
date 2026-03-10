@@ -725,7 +725,7 @@ function ExpandedPanel({
   return (
     <div
       ref={panelRef}
-      className="bg-bg border border-white/10 rounded-2xl overflow-hidden h-full flex flex-col"
+      className="bg-bg border border-white/10 rounded-2xl overflow-hidden flex flex-col"
       style={{
         animation: "fadeUp 0.35s cubic-bezier(0.16,1,0.3,1) 0.15s both",
       }}
@@ -751,7 +751,7 @@ function ExpandedPanel({
       </div>
 
       {/* Demo area */}
-      <div className="relative overflow-hidden flex-1">
+      <div className="relative overflow-hidden h-[280px] md:h-[400px]">
         {featureIndex === 0 && <FullGlitchDemo />}
         {featureIndex === 1 && <FullDotGrid />}
         {featureIndex === 2 && <FullGradientDemo />}
@@ -966,30 +966,17 @@ export default function BenLaclairCaseStudy() {
             </p>
 
             {/* Feature cards — 2x2 grid with fly-out expand */}
-            <div className="relative">
-              {/* Cards grid — flies out when expanded */}
+            <div>
+              {/* Cards grid — hidden when expanded */}
+              {expandedFeature === null && (
               <div
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-500"
-                style={{
-                  opacity: expandedFeature !== null ? 0 : 1,
-                  pointerEvents: expandedFeature !== null ? "none" : "auto",
-                }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
               >
                 {designFeatures.map((feature, i) => {
-                  // Each card flies toward a corner when expanding
-                  const flyDirections = [
-                    "translate(-60px, -40px) scale(0.85)",  // top-left
-                    "translate(60px, -40px) scale(0.85)",   // top-right
-                    "translate(-60px, 40px) scale(0.85)",   // bottom-left
-                    "translate(60px, 40px) scale(0.85)",    // bottom-right
-                  ];
                   return (
                     <ScrollReveal key={feature.label} delay={i * 80}>
                       <div
-                        className="group relative bg-surface border border-white/8 rounded-2xl p-5 md:p-6 hover:border-white/15 transition-all duration-500 cursor-pointer h-full flex flex-col"
-                        style={{
-                          transform: expandedFeature !== null ? flyDirections[i] : "translate(0,0) scale(1)",
-                        }}
+                        className="group relative bg-surface border border-white/8 rounded-2xl p-5 md:p-6 hover:border-white/15 transition-all duration-300 cursor-pointer h-full flex flex-col"
                         onClick={() => setExpandedFeature(i)}
                       >
                         {/* Live demo area */}
@@ -1055,15 +1042,14 @@ export default function BenLaclairCaseStudy() {
                   );
                 })}
               </div>
+              )}
 
-              {/* Expanded panel — fills the same space as the grid */}
+              {/* Expanded panel — replaces the grid */}
               {expandedFeature !== null && (
-                <div className="absolute inset-0">
-                  <ExpandedPanel
-                    featureIndex={expandedFeature}
-                    onClose={closeOverlay}
-                  />
-                </div>
+                <ExpandedPanel
+                  featureIndex={expandedFeature}
+                  onClose={closeOverlay}
+                />
               )}
             </div>
           </ScrollReveal>
