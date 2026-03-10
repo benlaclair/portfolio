@@ -967,9 +967,12 @@ export default function BenLaclairCaseStudy() {
             <div className="relative">
               {/* Cards grid — flies out when expanded */}
               <div
-                className={`grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-500 ${
-                  expandedFeature !== null ? "max-h-0 overflow-hidden md:max-h-none md:overflow-visible opacity-0 pointer-events-none" : ""
-                }`}
+                className={`grid grid-cols-1 md:grid-cols-2 gap-4${expandedFeature !== null ? " feature-grid-expanded" : ""}`}
+                style={{
+                  transition: "opacity 0.5s ease, transform 0.5s ease",
+                  opacity: expandedFeature !== null ? 0 : 1,
+                  pointerEvents: expandedFeature !== null ? "none" : "auto",
+                }}
               >
                 {designFeatures.map((feature, i) => {
                   const flyDirections = [
@@ -1050,11 +1053,10 @@ export default function BenLaclairCaseStudy() {
                   );
                 })}
               </div>
-              )}
 
               {/* Expanded panel — absolute overlay on desktop, flow on mobile */}
               {expandedFeature !== null && (
-                <div className="md:absolute md:inset-0">
+                <div className="md:absolute md:inset-0 z-10">
                   <ExpandedPanel
                     featureIndex={expandedFeature}
                     onClose={closeOverlay}
