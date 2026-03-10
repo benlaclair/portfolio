@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { DESIGN_GROUPS } from "@/data/graphicDesign";
@@ -94,14 +95,15 @@ export default function DesignSlider() {
             SLIDER_IMAGES.map((img, j) => (
               <div
                 key={`${copy}-${j}`}
-                className="shrink-0 h-[220px] md:h-[280px] rounded-xl overflow-hidden bg-surface"
+                className="shrink-0 h-[220px] md:h-[280px] w-[300px] md:w-[400px] rounded-xl overflow-hidden bg-surface relative"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={img.src}
                   alt={img.alt}
+                  fill
+                  sizes="(max-width: 768px) 300px, 400px"
+                  className="object-cover"
                   loading="lazy"
-                  className="h-full w-auto block"
                 />
               </div>
             ))
