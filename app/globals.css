@@ -68,9 +68,6 @@ body {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-@media (max-width: 767px) {
-  .feature-grid-expanded { display: none !important; }
-}
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0);    }

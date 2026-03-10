@@ -771,7 +771,16 @@ export default function BenLaclairCaseStudy() {
   const currentIndex = PROJECTS.findIndex((p) => p.slug === "benlaclair-com");
   const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
   const [expandedFeature, setExpandedFeature] = useState<number | null>(null);
+  const featureSectionRef = useRef<HTMLDivElement>(null);
   const closeOverlay = useCallback(() => setExpandedFeature(null), []);
+
+  const handleExpand = useCallback((i: number) => {
+    setExpandedFeature(i);
+    // Scroll the section into view after the panel renders
+    requestAnimationFrame(() => {
+      featureSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, []);
 
   return (
     <div className="relative pt-24 md:pt-32 pb-12 md:pb-24">
@@ -964,31 +973,15 @@ export default function BenLaclairCaseStudy() {
             </p>
 
             {/* Feature cards — 2x2 grid with fly-out expand */}
-            <div className="relative">
-              {/* Cards grid — flies out when expanded */}
-              <div
-                className={`grid grid-cols-1 md:grid-cols-2 gap-4${expandedFeature !== null ? " feature-grid-expanded" : ""}`}
-                style={{
-                  transition: "opacity 0.5s ease, transform 0.5s ease",
-                  opacity: expandedFeature !== null ? 0 : 1,
-                  pointerEvents: expandedFeature !== null ? "none" : "auto",
-                }}
-              >
+            <div ref={featureSectionRef} className="scroll-mt-24">
+              {expandedFeature === null ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {designFeatures.map((feature, i) => {
-                  const flyDirections = [
-                    "translate(-60px, -40px) scale(0.85)",
-                    "translate(60px, -40px) scale(0.85)",
-                    "translate(-60px, 40px) scale(0.85)",
-                    "translate(60px, 40px) scale(0.85)",
-                  ];
                   return (
                     <ScrollReveal key={feature.label} delay={i * 80}>
                       <div
-                        className="group relative bg-surface border border-white/8 rounded-2xl p-5 md:p-6 hover:border-white/15 transition-all duration-500 cursor-pointer h-full flex flex-col"
-                        style={{
-                          transform: expandedFeature !== null ? flyDirections[i] : "translate(0,0) scale(1)",
-                        }}
-                        onClick={() => setExpandedFeature(i)}
+                        className="group relative bg-surface border border-white/8 rounded-2xl p-5 md:p-6 hover:border-white/15 transition-all duration-300 cursor-pointer h-full flex flex-col"
+                        onClick={() => handleExpand(i)}
                       >
                         {/* Live demo area */}
                         <div className="w-full bg-bg rounded-xl border border-white/5 overflow-hidden relative group/demo mb-4">
@@ -1053,15 +1046,11 @@ export default function BenLaclairCaseStudy() {
                   );
                 })}
               </div>
-
-              {/* Expanded panel — absolute overlay on desktop, flow on mobile */}
-              {expandedFeature !== null && (
-                <div className="md:absolute md:inset-0 z-10">
-                  <ExpandedPanel
-                    featureIndex={expandedFeature}
-                    onClose={closeOverlay}
-                  />
-                </div>
+              ) : (
+                <ExpandedPanel
+                  featureIndex={expandedFeature}
+                  onClose={closeOverlay}
+                />
               )}
             </div>
           </ScrollReveal>
