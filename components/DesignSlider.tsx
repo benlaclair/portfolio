@@ -95,14 +95,15 @@ export default function DesignSlider() {
             SLIDER_IMAGES.map((img, j) => (
               <div
                 key={`${copy}-${j}`}
-                className="shrink-0 h-[220px] md:h-[280px] w-[300px] md:w-[400px] rounded-xl overflow-hidden bg-surface relative"
+                className="shrink-0 h-[220px] md:h-[280px] rounded-xl overflow-hidden bg-surface"
               >
                 <Image
                   src={img.src}
                   alt={img.alt}
-                  fill
-                  sizes="(max-width: 768px) 300px, 400px"
-                  className="object-cover"
+                  width={600}
+                  height={400}
+                  sizes="(max-width: 768px) 300px, 500px"
+                  className="h-full w-auto block"
                   loading="lazy"
                 />
               </div>

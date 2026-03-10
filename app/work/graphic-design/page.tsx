@@ -72,40 +72,27 @@ function ImageThumb({
   className,
   imgClassName,
   onOpen,
-  useFill = false,
 }: {
   src: string;
   alt: string;
   className?: string;
   imgClassName?: string;
   onOpen: (src: string, alt: string) => void;
-  useFill?: boolean;
 }) {
   return (
     <div
       className={`cursor-zoom-in group/thumb relative ${className ?? ""}`}
       onClick={() => onOpen(src, alt)}
     >
-      {useFill ? (
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(max-width: 768px) 50vw, 400px"
-          className={`object-cover ${imgClassName} transition-transform duration-300 ease-out group-hover/thumb:scale-[1.03]`}
-          loading="lazy"
-        />
-      ) : (
-        <Image
-          src={src}
-          alt={alt}
-          width={800}
-          height={600}
-          sizes="(max-width: 768px) 100vw, 800px"
-          className={`${imgClassName} transition-transform duration-300 ease-out group-hover/thumb:scale-[1.03]`}
-          loading="lazy"
-        />
-      )}
+      <Image
+        src={src}
+        alt={alt}
+        width={800}
+        height={600}
+        sizes="(max-width: 768px) 100vw, 800px"
+        className={`${imgClassName} transition-transform duration-300 ease-out group-hover/thumb:scale-[1.03]`}
+        loading="lazy"
+      />
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover/thumb:bg-black/30 transition-colors duration-300 flex items-center justify-center">
         <span className="text-white text-sm font-bold uppercase tracking-wider opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full">
@@ -357,9 +344,8 @@ function DesignSection({
                           key={`${copy}-${j}`}
                           src={img.src}
                           alt={img.alt}
-                          useFill
-                          className="shrink-0 h-[260px] md:h-[320px] w-[350px] md:w-[450px] rounded-xl overflow-hidden bg-surface"
-                          imgClassName="pointer-events-none"
+                          className="shrink-0 h-[260px] md:h-[320px] rounded-xl overflow-hidden bg-surface"
+                          imgClassName="h-full w-auto block pointer-events-none"
                           onOpen={handleImageClick}
                         />
                       ))
