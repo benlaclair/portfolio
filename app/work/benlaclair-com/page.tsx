@@ -771,15 +771,21 @@ export default function BenLaclairCaseStudy() {
   const currentIndex = PROJECTS.findIndex((p) => p.slug === "benlaclair-com");
   const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
   const [expandedFeature, setExpandedFeature] = useState<number | null>(null);
+  const [flyingOut, setFlyingOut] = useState<number | null>(null); // which card was clicked
   const featureSectionRef = useRef<HTMLDivElement>(null);
   const closeOverlay = useCallback(() => setExpandedFeature(null), []);
 
   const handleExpand = useCallback((i: number) => {
-    setExpandedFeature(i);
-    // Scroll the section into view after the panel renders
-    requestAnimationFrame(() => {
-      featureSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+    // Phase 1: trigger fly-out animation on cards
+    setFlyingOut(i);
+    // Phase 2: after animation, swap to panel
+    setTimeout(() => {
+      setFlyingOut(null);
+      setExpandedFeature(i);
+      requestAnimationFrame(() => {
+        featureSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }, 400);
   }, []);
 
   return (
@@ -975,12 +981,29 @@ export default function BenLaclairCaseStudy() {
             {/* Feature cards — 2x2 grid with fly-out expand */}
             <div ref={featureSectionRef} className="scroll-mt-24">
               {expandedFeature === null ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                style={{
+                  transition: "opacity 0.4s ease",
+                  opacity: flyingOut !== null ? 0 : 1,
+                  pointerEvents: flyingOut !== null ? "none" : "auto",
+                }}
+              >
                 {designFeatures.map((feature, i) => {
+                  const flyDirections = [
+                    "translate(-50px, -30px) scale(0.9)",
+                    "translate(50px, -30px) scale(0.9)",
+                    "translate(-50px, 30px) scale(0.9)",
+                    "translate(50px, 30px) scale(0.9)",
+                  ];
                   return (
                     <ScrollReveal key={feature.label} delay={i * 80}>
                       <div
-                        className="group relative bg-surface border border-white/8 rounded-2xl p-5 md:p-6 hover:border-white/15 transition-all duration-300 cursor-pointer h-full flex flex-col"
+                        className="group relative bg-surface border border-white/8 rounded-2xl p-5 md:p-6 hover:border-white/15 cursor-pointer h-full flex flex-col"
+                        style={{
+                          transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, border-color 0.3s",
+                          transform: flyingOut !== null ? flyDirections[i] : "translate(0,0) scale(1)",
+                        }}
                         onClick={() => handleExpand(i)}
                       >
                         {/* Live demo area */}
