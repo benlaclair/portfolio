@@ -968,7 +968,7 @@ export default function BenLaclairCaseStudy() {
               {/* Cards grid — flies out when expanded */}
               <div
                 className={`grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-500 ${
-                  expandedFeature !== null ? "md:opacity-0 md:pointer-events-none hidden md:grid" : ""
+                  expandedFeature !== null ? "max-h-0 overflow-hidden md:max-h-none md:overflow-visible opacity-0 pointer-events-none" : ""
                 }`}
               >
                 {designFeatures.map((feature, i) => {
