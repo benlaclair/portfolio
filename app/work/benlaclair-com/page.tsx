@@ -722,12 +722,6 @@ function ExpandedPanel({
     return () => document.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
-  useEffect(() => {
-    if (panelRef.current) {
-      panelRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-  }, []);
-
   return (
     <div
       ref={panelRef}
