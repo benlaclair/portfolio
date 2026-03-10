@@ -87,6 +87,7 @@ function ImageThumb({
       <img
         src={src}
         alt={alt}
+        loading="lazy"
         className={`${imgClassName} transition-transform duration-300 ease-out group-hover/thumb:scale-[1.03]`}
       />
       {/* Hover overlay */}

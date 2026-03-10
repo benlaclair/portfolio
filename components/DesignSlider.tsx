@@ -100,6 +100,7 @@ export default function DesignSlider() {
                 <img
                   src={img.src}
                   alt={img.alt}
+                  loading="lazy"
                   className="h-full w-auto block"
                 />
               </div>
