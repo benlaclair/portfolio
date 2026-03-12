@@ -167,12 +167,12 @@ export default function VeoCaseStudy() {
 
             <div className="flex flex-col gap-px bg-white/8 rounded-2xl overflow-hidden">
               {veoProcess.map((p) => (
-                <div key={p.step} className="bg-surface p-6 flex gap-6 items-start">
-                  <span className="text-3xl md:text-4xl font-extrabold text-grad leading-none shrink-0 w-10">{p.step}</span>
-                  <div>
-                    <div className="text-base font-extrabold text-ink mb-1 leading-tight">{p.title}</div>
-                    <p className="text-sm text-muted leading-relaxed">{p.description}</p>
+                <div key={p.step} className="bg-surface p-5 md:p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-sm font-extrabold text-grad leading-none">{p.step}</span>
+                    <div className="text-base font-extrabold text-ink leading-tight">{p.title}</div>
                   </div>
+                  <p className="text-sm text-muted leading-relaxed">{p.description}</p>
                 </div>
               ))}
             </div>
