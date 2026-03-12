@@ -44,4 +44,18 @@ export const PROJECTS: Project[] = [
     images: [],
     featured: true,
   },
+  {
+    slug: 'veo-olympics',
+    title: 'AI Winter Olympics Spot',
+    category: 'Both',
+    tags: ['AI Video', 'Google Flow', 'TV/CTV', 'Creative Direction'],
+    coverColor: '#4A90D9',
+    description: 'AI-generated 15-second TV spot that aired during Winter Olympics coverage.',
+    overview: 'A pest control brand needed a 15-second TV spot timed to Winter Olympics coverage. The concept: mice as winter athletes — bobsledding through gutters, sneaking inside, taking over an attic. I generated all video footage using Google Flow, delivering a production-ready AI commercial that aired on traditional TV and CTV.',
+    tools: ['Google Flow', 'Gemini', 'ChatGPT', 'AI Video Generation'],
+    year: '2026',
+    role: 'AI Video Creator',
+    images: [],
+    featured: true,
+  },
 ];
