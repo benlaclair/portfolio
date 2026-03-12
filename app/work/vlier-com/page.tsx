@@ -188,7 +188,7 @@ export default function VlierCaseStudy() {
           <ScrollReveal className="mb-16 md:mb-20">
             <span className="text-xs font-bold tracking-[0.2em] text-muted uppercase block mb-4">Outcome</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-ink tracking-tight leading-[1.1] mb-6">
-              In development. Grounded in research.
+              Delivered for development handoff.
             </h2>
             <p className="text-sm text-muted leading-relaxed mb-8 max-w-2xl">
               Deliverables included two full layout comps, interaction specs, responsive breakpoint guidance, and a CTA hierarchy rationale tied to Vlier's conversion data. The core shift: stop treating the product page as a catalog — start treating it as the beginning of a sale.
