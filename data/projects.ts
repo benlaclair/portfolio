@@ -4,6 +4,7 @@ export interface Project {
   category: 'UI/UX' | 'Branding' | 'Both';
   tags: string[];
   coverColor: string;
+  coverImage?: string;
   description: string;
   overview: string;
   tools: string[];
@@ -20,11 +21,26 @@ export const PROJECTS: Project[] = [
     category: 'Both',
     tags: ['UX/UI Design', 'Web Development', 'Brand Identity'],
     coverColor: '#00DFFF',
+    coverImage: '/images/benlaclair-cover.png',
     description: 'The dark, techy portfolio I always wanted to build — from scratch.',
     overview: 'My old portfolio was on uxfol.io — a template, bootcamp projects, nothing that felt like me. I rebuilt it from scratch in ~10 hours using Next.js, React, and Claude Code as a dev collaborator. Dark mode everything, glitch effects, cyan gradients, and all the expressive web dev I never get to do in client work.',
     tools: ['Next.js', 'React', 'Figma', 'Claude Code'],
     year: '2026',
     role: 'Designer & Developer',
+    images: [],
+    featured: true,
+  },
+  {
+    slug: 'vlier-com',
+    title: 'Vlier.com — Product Page',
+    category: 'UI/UX',
+    tags: ['UX/UI Design', 'Research & Strategy', 'Prototyping', 'B2B'],
+    coverColor: '#e8ff4a',
+    description: 'Restructuring a legacy industrial product page so the most valuable action — downloading a CAD file — became unavoidable.',
+    overview: 'Vlier is a division of Hutchinson Aerospace & Industry, manufacturing precision positioning hardware since 1946. As part of their Website 4.0 initiative, I redesigned the product page UX — the most critical touchpoint in the conversion path. The core shift: stop treating the product page as a catalog and start treating it as the beginning of a sale.',
+    tools: ['Figma', 'Research', 'Prototyping'],
+    year: '2025',
+    role: 'UX/UI Designer',
     images: [],
     featured: true,
   },

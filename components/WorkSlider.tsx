@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { PROJECTS } from "@/data/projects";
@@ -90,20 +91,32 @@ export default function WorkSlider() {
                   {/* Cover */}
                   <div
                     className="relative rounded-2xl overflow-hidden aspect-[4/3] mb-4"
-                    style={{ background: `linear-gradient(to right, ${project.coverColor}, ${project.coverColor}77)` }}
+                    style={{ background: project.coverImage ? undefined : `linear-gradient(to right, ${project.coverColor}, ${project.coverColor}77)` }}
                   >
-                    <div
-                      className="absolute inset-0 opacity-20"
-                      style={{
-                        backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.4) 1px, transparent 1px)",
-                        backgroundSize: "20px 20px",
-                      }}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-5xl md:text-6xl font-extrabold text-white/15 tracking-tighter select-none">
-                        {project.title.split("—")[0].trim().toUpperCase()}
-                      </span>
-                    </div>
+                    {project.coverImage ? (
+                      <Image
+                        src={project.coverImage}
+                        alt={project.title}
+                        fill
+                        sizes="400px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <>
+                        <div
+                          className="absolute inset-0 opacity-20"
+                          style={{
+                            backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.4) 1px, transparent 1px)",
+                            backgroundSize: "20px 20px",
+                          }}
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-5xl md:text-6xl font-extrabold text-white/15 tracking-tighter select-none">
+                            {project.title.split("—")[0].trim().toUpperCase()}
+                          </span>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   {/* Info */}

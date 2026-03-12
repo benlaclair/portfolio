@@ -4,11 +4,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import DotGrid from "@/components/DotGrid";
+import { SCRAMBLE_CHARS } from "@/data/constants";
 
 const tags = ["UX/UI Design", "Brand Identity", "Web Development", "AI Integration"];
 
 const SCRAMBLE_TEXT = ["B", "E", "N", "."] as const;
-const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$!%?|*=+~^&";
 
 type Slice = { clip: string; x: number; y?: number; color: string };
 type GlitchFrame = { slices: Slice[]; mainX: number; mainY?: number };
