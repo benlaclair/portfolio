@@ -1,5 +1,7 @@
 "use client";
 
+import { useIsMobile } from "@/hooks/useIsMobile";
+
 export default function CoverPattern({
   title,
   coverColor,
@@ -7,7 +9,10 @@ export default function CoverPattern({
   title: string;
   coverColor: string;
 }) {
+  const mobile = useIsMobile();
   const label = title.split("—")[0].trim();
+  const rows = mobile ? 16 : 32;
+  const cols = mobile ? 6 : 10;
 
   return (
     <>
@@ -28,7 +33,7 @@ export default function CoverPattern({
           pointerEvents: "none",
         }}
       >
-        {Array.from({ length: 32 }).map((_, row) => (
+        {Array.from({ length: rows }).map((_, row) => (
           <div
             key={row}
             style={{
@@ -41,7 +46,7 @@ export default function CoverPattern({
               animation: `${row % 2 === 0 ? "cvDriftR" : "cvDriftL"} 45s linear ${-(row % 9) * 5}s infinite`,
             }}
           >
-            {Array.from({ length: 10 }).map((_, col) => (
+            {Array.from({ length: cols }).map((_, col) => (
               <span
                 key={col}
                 style={{

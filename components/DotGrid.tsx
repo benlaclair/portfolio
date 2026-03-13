@@ -11,10 +11,12 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const SPACING = 28;
+    const mobile = window.innerWidth < 768;
+    const SPACING = mobile ? 44 : 28;
     const RADIUS = 1.5;
     const BASE_A = 0.07;
     const WAVE_A = 0.22;
+    let frameCount = 0;
 
     type Cluster = { cx: number; cy: number; r: number; startT: number; duration: number };
     let clusters: Cluster[] = [];
@@ -41,6 +43,8 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
 
     function tick(now: number) {
       if (!ctx) return;
+      frameCount++;
+      if (mobile && frameCount % 2 !== 0) { raf = requestAnimationFrame(tick); return; }
       if (origin < 0) origin = now;
       const t = (now - origin) / 1000;
       ctx.clearRect(0, 0, w, h);

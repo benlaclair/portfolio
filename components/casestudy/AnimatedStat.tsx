@@ -33,6 +33,7 @@ export default function AnimatedStat({ value, suffix, label, delay, accentColor 
 
   useEffect(() => {
     if (!inView || isNumeric) return;
+    const mobile = window.innerWidth < 768;
     const letters = value.split("");
     const resolveAt = letters.map((_, i) => 200 + i * 120);
     const startTime = Date.now();
@@ -49,7 +50,7 @@ export default function AnimatedStat({ value, suffix, label, delay, accentColor 
         clearInterval(interval);
         setDisplay(value);
       }
-    }, 40);
+    }, mobile ? 80 : 40);
 
     return () => clearInterval(interval);
   }, [inView, value, isNumeric]);

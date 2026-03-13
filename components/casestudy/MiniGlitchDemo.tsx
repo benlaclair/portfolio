@@ -8,6 +8,7 @@ export default function MiniGlitchDemo() {
   const [scramble, setScramble] = useState<string | null>(null);
 
   useEffect(() => {
+    const mobile = window.innerWidth < 768;
     let timer: ReturnType<typeof setTimeout>;
     let interval: ReturnType<typeof setInterval>;
 
@@ -31,9 +32,9 @@ export default function MiniGlitchDemo() {
             setTimeout(() => setGlitching(false), 180);
           }, 600);
         }
-      }, 40);
+      }, mobile ? 80 : 40);
 
-      timer = setTimeout(runCycle, 4000 + Math.random() * 3000);
+      timer = setTimeout(runCycle, mobile ? 6000 + Math.random() * 5000 : 4000 + Math.random() * 3000);
     }
 
     timer = setTimeout(runCycle, 1200);

@@ -34,6 +34,7 @@ export default function FullGlitchDemo() {
   const burstRef = useRef(0);
 
   useEffect(() => {
+    const mobile = window.innerWidth < 768;
     let timer: ReturnType<typeof setTimeout>;
     let interval: ReturnType<typeof setInterval>;
 
@@ -54,7 +55,7 @@ export default function FullGlitchDemo() {
           setScramble(null);
           setTimeout(() => {
             setGlitching(true);
-            let frames = 3 + Math.floor(Math.random() * 4);
+            let frames = mobile ? 1 + Math.floor(Math.random() * 2) : 3 + Math.floor(Math.random() * 4);
             function nextFrame() {
               if (frames <= 0) {
                 setGlitching(false);
@@ -66,9 +67,9 @@ export default function FullGlitchDemo() {
             setTimeout(nextFrame, 50);
           }, 400);
         }
-      }, 45);
+      }, mobile ? 90 : 45);
 
-      timer = setTimeout(runCycle, 3000 + Math.random() * 2500);
+      timer = setTimeout(runCycle, mobile ? 5000 + Math.random() * 4000 : 3000 + Math.random() * 2500);
     }
 
     runCycle();

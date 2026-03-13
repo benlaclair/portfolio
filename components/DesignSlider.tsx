@@ -39,6 +39,8 @@ export default function DesignSlider() {
       }
     }
 
+    let visible = true;
+
     function autoScroll(now: number) {
       if (!lastFrame) lastFrame = now;
       const dt = Math.min(now - lastFrame, 50);
@@ -53,14 +55,25 @@ export default function DesignSlider() {
         }
         innerRef.current.style.transform = `translateX(${-offset}px)`;
       }
-      raf = requestAnimationFrame(autoScroll);
+      if (visible) raf = requestAnimationFrame(autoScroll);
     }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) { lastFrame = 0; raf = requestAnimationFrame(autoScroll); }
+        else cancelAnimationFrame(raf);
+      },
+      { threshold: 0 }
+    );
+    observer.observe(el);
 
     let raf = requestAnimationFrame(autoScroll);
     el.addEventListener("scroll", checkLoop);
 
     return () => {
       cancelAnimationFrame(raf);
+      observer.disconnect();
       el.removeEventListener("scroll", checkLoop);
     };
   }, []);

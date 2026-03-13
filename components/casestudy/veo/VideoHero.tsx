@@ -1,12 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function VideoHero() {
   const [hasError, setHasError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    const video = videoRef.current;
+    if (!el || !video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasError]);
 
   return (
-    <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40">
+    <div ref={containerRef} className="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40">
       {/* Browser chrome */}
       <div className="bg-surface px-4 py-3 flex items-center gap-2 border-b border-white/8">
         <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
@@ -27,10 +48,11 @@ export default function VideoHero() {
         </div>
       ) : (
         <video
-          autoPlay
+          ref={videoRef}
           muted
           loop
           playsInline
+          preload="metadata"
           className="w-full aspect-video bg-[#0a0d12] object-cover"
           onError={() => setHasError(true)}
         >

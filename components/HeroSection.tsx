@@ -191,12 +191,14 @@ export default function HeroSection() {
   const [scrambleState, setScrambleState] = useState<(string | null)[] | null>(null);
 
   useEffect(() => {
+    const mobile = window.innerWidth < 768;
     let frameTimer: ReturnType<typeof setTimeout>;
     let burstTimer: ReturnType<typeof setTimeout>;
     let scrambleTick: ReturnType<typeof setInterval>;
     let scrambleTimer: ReturnType<typeof setTimeout>;
 
     const RESOLVE_AT = [350, 500, 650, 820];
+    const scrambleInterval = mobile ? 80 : 45;
 
     function runScramble(onDone?: () => void) {
       clearInterval(scrambleTick);
@@ -224,19 +226,19 @@ export default function HeroSection() {
           setScrambleState(null);
           onDone?.();
         }
-      }, 45);
+      }, scrambleInterval);
     }
 
     function scheduleScramble() {
       scrambleTimer = setTimeout(() => {
         runScramble(scheduleScramble);
-      }, 8000 + Math.floor(Math.random() * 7000));
+      }, mobile ? 12000 + Math.floor(Math.random() * 8000) : 8000 + Math.floor(Math.random() * 7000));
     }
 
     runScramble(scheduleScramble);
 
     function runBurst(onDone?: () => void) {
-      const count = 3 + Math.floor(Math.random() * 6);
+      const count = mobile ? 2 + Math.floor(Math.random() * 2) : 3 + Math.floor(Math.random() * 6);
       const pool = [...BURST_FRAMES.keys()];
       const picked: number[] = [];
       while (picked.length < count && pool.length > 0) {
@@ -260,10 +262,10 @@ export default function HeroSection() {
     }
 
     function scheduleNext() {
-      const wait = 2500 + Math.floor(Math.random() * 3500);
+      const wait = mobile ? 5000 + Math.floor(Math.random() * 5000) : 2500 + Math.floor(Math.random() * 3500);
       burstTimer = setTimeout(() => {
         runBurst(() => {
-          if (Math.random() < 0.35) {
+          if (!mobile && Math.random() < 0.35) {
             frameTimer = setTimeout(() => runBurst(scheduleNext), 200 + Math.floor(Math.random() * 250));
           } else {
             scheduleNext();
