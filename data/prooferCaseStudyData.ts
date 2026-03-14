@@ -26,15 +26,9 @@ export const prooferFeatures = [
   },
   {
     number: "04",
-    title: "Issue Triage",
+    title: "Triage & Export",
     description:
-      "Accept or reject each AI finding before exporting. The triage system prevents false positives from reaching the client report.",
-  },
-  {
-    number: "05",
-    title: "PDF Report Export",
-    description:
-      "Generate a multi-page, professionally formatted proofing report with custom pagination, headers, and branding — ready to hand to a client or creative director.",
+      "Accept or reject each AI finding, then export a multi-page PDF report with professional formatting, pagination, and branding — ready to hand to a client or creative director.",
   },
 ];
 

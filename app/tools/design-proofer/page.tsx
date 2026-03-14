@@ -31,7 +31,7 @@ export default function ProoferCaseStudy() {
 
           <div className="flex flex-wrap gap-2 mb-5">
             {tool.tech.map((tag) => (
-              <span key={tag} className="text-xs font-extrabold bg-grad text-[#080B0F] px-3 py-1 rounded-full">{tag}</span>
+              <span key={tag} className="text-xs font-extrabold text-[#080B0F] px-3 py-1 rounded-full" style={{ background: tool.accentColor }}>{tag}</span>
             ))}
           </div>
 
@@ -54,7 +54,7 @@ export default function ProoferCaseStudy() {
       {tool.url && (
         <div className="px-6 md:px-12 mb-16 fade-up-1">
           <div className="max-w-6xl mx-auto">
-            <ToolEmbed url={tool.url} title={tool.name} />
+            <ToolEmbed url={tool.url} title={tool.name} accentColor={tool.accentColor} />
           </div>
         </div>
       )}
@@ -67,7 +67,7 @@ export default function ProoferCaseStudy() {
               key={stat.label}
               className={`px-6 md:px-10 py-8 md:py-10 ${i < prooferStats.length - 1 ? "border-r border-white/8" : ""} ${i < 2 ? "border-b border-white/8 md:border-b-0" : ""}`}
             >
-              <AnimatedStat value={stat.value} suffix={stat.suffix} label={stat.label} delay={i * 100} />
+              <AnimatedStat value={stat.value} suffix={stat.suffix} label={stat.label} delay={i * 100} accentColor={tool.accentColor} />
             </div>
           ))}
         </div>
@@ -117,7 +117,10 @@ export default function ProoferCaseStudy() {
             <p className="text-xs font-bold text-muted uppercase tracking-[0.15em] mb-3">Next tool</p>
             <Link
               href={`/tools/${nextTool.slug}`}
-              className="text-3xl md:text-5xl font-extrabold text-ink hover:text-grad transition-colors duration-300 block"
+              className="text-3xl md:text-5xl font-extrabold text-ink transition-colors duration-300 block"
+              style={{ '--hover-color': nextTool.accentColor } as React.CSSProperties}
+              onMouseEnter={(e) => (e.currentTarget.style.color = nextTool.accentColor)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '')}
             >
               {nextTool.name} →
             </Link>

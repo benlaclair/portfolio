@@ -5,9 +5,10 @@ import { useState } from "react";
 interface ToolEmbedProps {
   url: string;
   title: string;
+  accentColor?: string;
 }
 
-export default function ToolEmbed({ url, title }: ToolEmbedProps) {
+export default function ToolEmbed({ url, title, accentColor }: ToolEmbedProps) {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -18,7 +19,7 @@ export default function ToolEmbed({ url, title }: ToolEmbedProps) {
         <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
         <span className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
         <span className="text-xs text-muted ml-3 tracking-wide truncate">
-          {title} — <span className="text-grad font-bold">Live</span>
+          {title} — <span className="font-bold" style={{ color: accentColor }}>Live</span>
         </span>
         <a
           href={url}

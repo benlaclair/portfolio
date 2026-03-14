@@ -26,15 +26,9 @@ export const seoHubFeatures = [
   },
   {
     number: "04",
-    title: "Copy-Paste Code Examples",
+    title: "Code Examples & Comparisons",
     description:
-      "15+ production-ready code snippets covering Schema.org structured data, FAQ schema markup, XML sitemaps, robots.txt configuration, and meta tag optimization.",
-  },
-  {
-    number: "05",
-    title: "Side-by-Side Comparisons",
-    description:
-      "Interactive comparison views that put traditional approaches next to optimized implementations — making the difference between a basic FAQ page and AEO-optimized content immediately clear.",
+      "15+ copy-paste code snippets for Schema.org, FAQ markup, and meta tags — plus side-by-side comparison views showing the real difference between a basic FAQ page and AEO-optimized content.",
   },
 ];
 

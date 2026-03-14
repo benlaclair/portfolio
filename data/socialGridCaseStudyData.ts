@@ -26,15 +26,9 @@ export const socialGridFeatures = [
   },
   {
     number: "04",
-    title: "Image Replacement",
+    title: "Custom Images & Bulk Export",
     description:
-      "Four replacement modes: browse the stock library, search Unsplash, upload a file, or paste a URL. Every override is tracked and persisted across sessions via localStorage.",
-  },
-  {
-    number: "05",
-    title: "Bulk Export",
-    description:
-      "Select individual posts or entire days, then export as a ZIP of production-ready 1080×1080 PNGs with smart file naming — or download a CSV with full metadata for scheduling tools.",
+      "Replace any auto-assigned image via stock library, Unsplash, file upload, or URL — then select posts and export as a ZIP of production-ready 1080×1080 PNGs with smart file naming and CSV metadata.",
   },
 ];
 
