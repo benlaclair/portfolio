@@ -1,4 +1,5 @@
 import { PROJECTS } from "@/data/projects";
+import { TOOLS } from "@/data/tools";
 import type { MetadataRoute } from "next";
 
 const siteUrl = "https://benlaclair.com";
@@ -6,6 +7,13 @@ const siteUrl = "https://benlaclair.com";
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectPages = PROJECTS.map((p) => ({
     url: `${siteUrl}/work/${p.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  const toolPages = TOOLS.map((t) => ({
+    url: `${siteUrl}/tools/${t.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
@@ -37,11 +45,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: `${siteUrl}/tools`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/work/graphic-design`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     ...projectPages,
+    ...toolPages,
   ];
 }
