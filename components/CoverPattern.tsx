@@ -19,8 +19,12 @@ export default function CoverPattern({
       <style>{`
         @keyframes cvDriftR { from { transform: translateX(0px); } to { transform: translateX(280px); } }
         @keyframes cvDriftL { from { transform: translateX(0px); } to { transform: translateX(-280px); } }
+        @media (prefers-reduced-motion: reduce) {
+          [data-cover-pattern] * { animation-play-state: paused !important; }
+        }
       `}</style>
       <div
+        data-cover-pattern
         aria-hidden
         style={{
           position: "absolute",

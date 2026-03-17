@@ -75,6 +75,7 @@ export default function ImageGallery({ coverColor, count = 4 }: ImageGalleryProp
             {/* Prev */}
             <button
               onClick={prev}
+              aria-label="Previous image"
               className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 flex items-center justify-center text-white transition-colors"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -85,6 +86,7 @@ export default function ImageGallery({ coverColor, count = 4 }: ImageGalleryProp
             {/* Next */}
             <button
               onClick={next}
+              aria-label="Next image"
               className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 flex items-center justify-center text-white transition-colors"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -96,6 +98,7 @@ export default function ImageGallery({ coverColor, count = 4 }: ImageGalleryProp
           {/* Close */}
           <button
             onClick={close}
+            aria-label="Close lightbox"
             className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

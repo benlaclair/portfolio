@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface ToolEmbedProps {
   url: string;
@@ -10,6 +10,17 @@ interface ToolEmbedProps {
 
 export default function ToolEmbed({ url, title, accentColor }: ToolEmbedProps) {
   const [loaded, setLoaded] = useState(false);
+  const fallbackTimer = useRef<ReturnType<typeof setTimeout>>(null);
+
+  useEffect(() => {
+    fallbackTimer.current = setTimeout(() => setLoaded(true), 8000);
+    return () => { if (fallbackTimer.current) clearTimeout(fallbackTimer.current); };
+  }, []);
+
+  const handleLoad = () => {
+    if (fallbackTimer.current) clearTimeout(fallbackTimer.current);
+    setLoaded(true);
+  };
 
   return (
     <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40">
@@ -46,7 +57,7 @@ export default function ToolEmbed({ url, title, accentColor }: ToolEmbedProps) {
           title={title}
           className="w-full h-full border-0"
           style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.3s ease" }}
-          onLoad={() => setLoaded(true)}
+          onLoad={handleLoad}
           allow="clipboard-read; clipboard-write"
         />
       </div>

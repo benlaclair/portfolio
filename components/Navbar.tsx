@@ -29,7 +29,7 @@ export default function Navbar() {
               key={href}
               href={href}
               className={`text-sm font-semibold transition-colors relative group ${
-                pathname === href
+                (href === "/about" ? pathname === href : pathname.startsWith(href))
                   ? "text-ink"
                   : "text-muted hover:text-ink"
               }`}
@@ -37,7 +37,7 @@ export default function Navbar() {
               {label}
               <span
                 className={`absolute -bottom-1 left-0 h-0.5 bg-grad transition-all duration-300 ${
-                  pathname === href ? "w-full" : "w-0 group-hover:w-full"
+                  (href === "/about" ? pathname === href : pathname.startsWith(href)) ? "w-full" : "w-0 group-hover:w-full"
                 }`}
               />
             </Link>
@@ -56,6 +56,7 @@ export default function Navbar() {
             onClick={() => setOpen(!open)}
             className="flex flex-col gap-1.5 p-1"
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
             <span className={`w-6 h-0.5 bg-ink transition-all duration-300 origin-center ${open ? "rotate-45 translate-y-2" : ""}`} />
             <span className={`w-6 h-0.5 bg-ink transition-all duration-300 ${open ? "opacity-0" : ""}`} />

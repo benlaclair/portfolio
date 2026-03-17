@@ -192,6 +192,7 @@ export default function HeroSection() {
 
   useEffect(() => {
     const mobile = window.innerWidth < 768;
+    let alive = true;
     let frameTimer: ReturnType<typeof setTimeout>;
     let burstTimer: ReturnType<typeof setTimeout>;
     let scrambleTick: ReturnType<typeof setInterval>;
@@ -230,7 +231,9 @@ export default function HeroSection() {
     }
 
     function scheduleScramble() {
+      if (!alive) return;
       scrambleTimer = setTimeout(() => {
+        if (!alive) return;
         runScramble(scheduleScramble);
       }, mobile ? 12000 + Math.floor(Math.random() * 8000) : 8000 + Math.floor(Math.random() * 7000));
     }
@@ -248,6 +251,7 @@ export default function HeroSection() {
 
       let i = 0;
       function nextFrame() {
+        if (!alive) return;
         if (i >= picked.length) {
           setFrameIdx(null);
           onDone?.();
@@ -262,11 +266,14 @@ export default function HeroSection() {
     }
 
     function scheduleNext() {
+      if (!alive) return;
       const wait = mobile ? 5000 + Math.floor(Math.random() * 5000) : 2500 + Math.floor(Math.random() * 3500);
       burstTimer = setTimeout(() => {
+        if (!alive) return;
         runBurst(() => {
+          if (!alive) return;
           if (!mobile && Math.random() < 0.35) {
-            frameTimer = setTimeout(() => runBurst(scheduleNext), 200 + Math.floor(Math.random() * 250));
+            frameTimer = setTimeout(() => { if (alive) runBurst(scheduleNext); }, 200 + Math.floor(Math.random() * 250));
           } else {
             scheduleNext();
           }
@@ -277,6 +284,7 @@ export default function HeroSection() {
     burstTimer = setTimeout(() => runBurst(scheduleNext), 1200);
 
     return () => {
+      alive = false;
       clearTimeout(frameTimer);
       clearTimeout(burstTimer);
       clearTimeout(scrambleTimer);

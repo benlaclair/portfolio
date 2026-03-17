@@ -20,15 +20,17 @@ export default function AnimatedStat({ value, suffix, label, delay, accentColor 
     const target = parseInt(value);
     const duration = 800;
     const start = performance.now();
+    let raf: number;
 
     function tick(now: number) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setDisplay(Math.round(eased * target).toString());
-      if (progress < 1) requestAnimationFrame(tick);
+      if (progress < 1) raf = requestAnimationFrame(tick);
     }
-    requestAnimationFrame(tick);
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
   }, [inView, value, isNumeric]);
 
   useEffect(() => {

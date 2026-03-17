@@ -39,7 +39,13 @@ export default function ContactForm() {
     return (
       <div className="bg-surface border-2 border-lime/30 rounded-xl px-8 py-12 text-center">
         <p className="text-2xl font-extrabold text-ink mb-2">Message sent!</p>
-        <p className="text-sm text-muted">I&apos;ll get back to you soon.</p>
+        <p className="text-sm text-muted mb-4">I&apos;ll get back to you soon.</p>
+        <button
+          onClick={() => setStatus("idle")}
+          className="text-sm font-bold text-muted hover:text-ink transition-colors"
+        >
+          Send another →
+        </button>
       </div>
     );
   }
@@ -80,7 +86,16 @@ export default function ContactForm() {
         {status === "sending" ? "Sending..." : "Send it →"}
       </button>
       {status === "error" && (
-        <p className="text-sm text-red-400">Something went wrong. Please try again.</p>
+        <div className="flex items-center gap-3">
+          <p className="text-sm text-red-400">Something went wrong.</p>
+          <button
+            type="button"
+            onClick={() => setStatus("idle")}
+            className="text-sm font-bold text-red-400 hover:text-ink transition-colors underline"
+          >
+            Try again
+          </button>
+        </div>
       )}
     </form>
   );
