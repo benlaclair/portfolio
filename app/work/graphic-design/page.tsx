@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useCallback, useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import { DESIGN_GROUPS } from "@/data/graphicDesign";
 import DotGrid from "@/components/DotGrid";
 import Lightbox from "@/components/design/Lightbox";
@@ -48,15 +47,13 @@ export default function GraphicDesignPage() {
       </div>
 
       {/* Lightbox overlay */}
-      <AnimatePresence>
-        {lightbox && (
-          <Lightbox
-            src={lightbox.src}
-            alt={lightbox.alt}
-            onClose={() => setLightbox(null)}
-          />
-        )}
-      </AnimatePresence>
+      {lightbox && (
+        <Lightbox
+          src={lightbox.src}
+          alt={lightbox.alt}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </div>
   );
 }
