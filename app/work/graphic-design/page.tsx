@@ -16,11 +16,11 @@ export default function GraphicDesignPage() {
   }, []);
 
   return (
-    <div className="relative pt-24 md:pt-32 px-6 md:px-12 pb-12 md:pb-24">
+    <div className="relative pt-24 md:pt-32 pb-12 md:pb-24">
       <DotGrid showDots={false} />
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="fade-up">
+      {/* Header — padded */}
+      <div className="px-6 md:px-12">
+        <div className="max-w-6xl mx-auto fade-up">
           <Link
             href="/work"
             className="text-sm font-bold text-muted hover:text-ink transition-colors mb-8 inline-block"
@@ -38,13 +38,13 @@ export default function GraphicDesignPage() {
             and digital — built for real clients across a range of industries.
           </p>
         </div>
+      </div>
 
-        {/* Design groups */}
-        <div className="flex flex-col gap-10">
-          {DESIGN_GROUPS.map((group, i) => (
-            <DesignSection key={group.id} group={group} index={i} onOpenLightbox={openLightbox} />
-          ))}
-        </div>
+      {/* Design groups — full width on mobile for edge-to-edge sliders */}
+      <div className="max-w-6xl mx-auto flex flex-col gap-10 px-6 md:px-12">
+        {DESIGN_GROUPS.map((group, i) => (
+          <DesignSection key={group.id} group={group} index={i} onOpenLightbox={openLightbox} />
+        ))}
       </div>
 
       {/* Lightbox overlay */}

@@ -243,10 +243,10 @@ export default function DesignSection({
                   ←
                 </button>
 
-                {/* Scrollable row */}
+                {/* Scrollable row — bleeds edge-to-edge on mobile */}
                 <div
                   ref={scrollRef}
-                  className="flex gap-3 overflow-x-auto scrollbar-hide cursor-grab select-none"
+                  className="flex gap-3 overflow-x-auto scrollbar-hide cursor-grab select-none -mx-6 px-6 md:mx-0 md:px-0"
                   onPointerDown={onPointerDown}
                   onPointerMove={onPointerMove}
                   onPointerUp={onPointerUp}
