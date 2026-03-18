@@ -29,15 +29,15 @@ export default function Lightbox({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2 }}
       className="fixed inset-0 z-50 flex items-center justify-center cursor-zoom-out"
       onClick={onClose}
     >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
+      {/* Backdrop — no fade-in to prevent flicker */}
+      <div className="absolute inset-0 bg-black/90" />
 
       {/* Close button */}
       <button
