@@ -39,6 +39,7 @@ export default function Lightbox({
       {/* Close button */}
       <button
         onClick={onClose}
+        aria-label="Close lightbox"
         className="absolute top-4 right-4 md:top-6 md:right-6 z-10 w-10 h-10 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer text-xl font-bold backdrop-blur-sm"
       >
         ×

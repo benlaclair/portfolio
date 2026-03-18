@@ -11,6 +11,10 @@
   --font-sans: var(--font-jakarta);
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   background-color: #080B0F;
   color: #F0F4F8;

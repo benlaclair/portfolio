@@ -134,11 +134,13 @@ export default function DesignSection({
 
     let lastFrame = 0;
     let offset = 0;
+    let visible = true;
+
     function autoScroll(now: number) {
       if (!lastFrame) { lastFrame = now; }
       const dt = Math.min(now - lastFrame, 50);
       lastFrame = now;
-      if (!isHovered.current && !isDragging.current && scrollRef.current && innerRef.current && momentumRaf.current === 0) {
+      if (visible && !isHovered.current && !isDragging.current && scrollRef.current && innerRef.current && momentumRaf.current === 0) {
         const dir = index % 2 === 0 ? 1 : -1;
         offset += dt * 0.03;
         const px = Math.floor(offset);
@@ -149,11 +151,28 @@ export default function DesignSection({
         }
         innerRef.current.style.transform = `translateX(${-offset * dir}px)`;
       }
-      autoScrollRaf.current = requestAnimationFrame(autoScroll);
+      if (visible) autoScrollRaf.current = requestAnimationFrame(autoScroll);
     }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) {
+          lastFrame = 0;
+          autoScrollRaf.current = requestAnimationFrame(autoScroll);
+        } else {
+          cancelAnimationFrame(autoScrollRaf.current);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(el);
     autoScrollRaf.current = requestAnimationFrame(autoScroll);
 
-    return () => cancelAnimationFrame(autoScrollRaf.current);
+    return () => {
+      cancelAnimationFrame(autoScrollRaf.current);
+      observer.disconnect();
+    };
   }, [hasImages, expanded]);
 
   function checkLoop() {
@@ -287,7 +306,7 @@ export default function DesignSection({
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
                         duration: 0.4,
-                        delay: j * 0.06,
+                        delay: Math.min(j * 0.06, 0.6),
                         ease: [0.16, 1, 0.3, 1],
                       }}
                     >
