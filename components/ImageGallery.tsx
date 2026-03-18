@@ -21,11 +21,14 @@ export default function ImageGallery({ coverColor, count = 4 }: ImageGalleryProp
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft")  prev();
     };
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     };
   }, [active, close, next, prev]);
 

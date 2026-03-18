@@ -16,10 +16,13 @@ export default function Lightbox({
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
     }
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
       window.removeEventListener("keydown", onKey);
     };
   }, [onClose]);
