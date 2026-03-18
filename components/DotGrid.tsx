@@ -41,10 +41,52 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
+    // On mobile with showDots=false, render nothing — skip the RAF loop entirely
+    if (mobile && !showDots) {
+      resize();
+      return;
+    }
+
+    // On mobile with showDots=true, draw static dots once — no animation loop
+    if (mobile && showDots) {
+      resize();
+      const cols = Math.ceil(w / SPACING) + 1;
+      const rows = Math.ceil(h / SPACING) + 1;
+      ctx.fillStyle = `rgba(0,223,255,${BASE_A})`;
+      ctx.beginPath();
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = c * SPACING, y = r * SPACING;
+          ctx.moveTo(x + RADIUS, y);
+          ctx.arc(x, y, RADIUS, 0, Math.PI * 2);
+        }
+      }
+      ctx.fill();
+      // Redraw on resize only
+      const onResize = () => {
+        resize();
+        if (!ctx) return;
+        const cols = Math.ceil(w / SPACING) + 1;
+        const rows = Math.ceil(h / SPACING) + 1;
+        ctx.fillStyle = `rgba(0,223,255,${BASE_A})`;
+        ctx.beginPath();
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const x = c * SPACING, y = r * SPACING;
+            ctx.moveTo(x + RADIUS, y);
+            ctx.arc(x, y, RADIUS, 0, Math.PI * 2);
+          }
+        }
+        ctx.fill();
+      };
+      window.addEventListener("resize", onResize);
+      return () => window.removeEventListener("resize", onResize);
+    }
+
+    // Desktop: full animated dot grid with cluster bursts
     function tick(now: number) {
       if (!ctx) return;
       frameCount++;
-      if (mobile && frameCount % 2 !== 0) { raf = requestAnimationFrame(tick); return; }
       if (origin < 0) origin = now;
       const t = (now - origin) / 1000;
       ctx.clearRect(0, 0, w, h);
@@ -80,7 +122,6 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
       const cols = Math.ceil(w / SPACING) + 1;
       const rows = Math.ceil(h / SPACING) + 1;
 
-      // Base dot grid (optional)
       if (showDots) {
         ctx.fillStyle = `rgba(0,223,255,${BASE_A})`;
         ctx.beginPath();
@@ -94,7 +135,6 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
         ctx.fill();
       }
 
-      // Cluster glow bursts
       if (clusters.length > 0) {
         for (let r = 0; r < rows; r++) {
           for (let c = 0; c < cols; c++) {

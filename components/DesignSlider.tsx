@@ -41,12 +41,17 @@ export default function DesignSlider() {
 
     let visible = true;
 
+    const mobile = window.innerWidth < 768;
+    let frameCount = 0;
+
     function autoScroll(now: number) {
       if (!lastFrame) lastFrame = now;
+      frameCount++;
+      if (mobile && frameCount % 3 !== 0) { if (visible) raf = requestAnimationFrame(autoScroll); return; }
       const dt = Math.min(now - lastFrame, 50);
       lastFrame = now;
       if (scrollRef.current && innerRef.current) {
-        offset += dt * 0.03;
+        offset += dt * (mobile ? 0.02 : 0.03);
         const px = Math.floor(offset);
         if (px >= 1) {
           scrollRef.current.scrollLeft += px;

@@ -11,8 +11,8 @@
   --font-sans: var(--font-jakarta);
 }
 
-html {
-  scrollbar-gutter: stable;
+@media (min-width: 768px) {
+  html { scrollbar-gutter: stable; }
 }
 
 body {
