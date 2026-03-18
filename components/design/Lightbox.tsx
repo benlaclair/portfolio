@@ -50,14 +50,14 @@ export default function Lightbox({
         </svg>
       </button>
 
-      {/* Image */}
+      {/* Image — no opacity animation to avoid black frame flash */}
       <motion.img
         src={src}
         alt={alt}
-        initial={{ scale: 0.85, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.85, opacity: 0 }}
-        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ scale: 0.92 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0.92 }}
+        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className="relative max-w-[92vw] max-h-[90vh] object-contain rounded-xl"
         onClick={(e) => e.stopPropagation()}
       />

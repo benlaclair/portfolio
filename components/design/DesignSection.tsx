@@ -16,6 +16,7 @@ export default function DesignSection({
   onOpenLightbox: (src: string, alt: string) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const [copies, setCopies] = useState(3);
   const scrollRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -122,14 +123,23 @@ export default function DesignSection({
   const isHovered = useRef(false);
   const autoScrollRaf = useRef(0);
 
+  const isMobile = useRef(false);
+
+  useEffect(() => {
+    isMobile.current = window.innerWidth < 768;
+    if (isMobile.current) setCopies(2);
+  }, []);
+
   useEffect(() => {
     const el = scrollRef.current;
     if (!el || !hasImages || expanded) return;
 
+    const copies = isMobile.current ? 2 : 3;
+
     requestAnimationFrame(() => {
       if (!scrollRef.current) return;
-      const oneSetWidth = scrollRef.current.scrollWidth / 3;
-      scrollRef.current.scrollLeft = oneSetWidth;
+      const oneSetWidth = scrollRef.current.scrollWidth / copies;
+      scrollRef.current.scrollLeft = isMobile.current ? 0 : oneSetWidth;
     });
 
     let lastFrame = 0;
@@ -140,7 +150,7 @@ export default function DesignSection({
       if (!lastFrame) { lastFrame = now; }
       const dt = Math.min(now - lastFrame, 50);
       lastFrame = now;
-      if (visible && !isHovered.current && !isDragging.current && scrollRef.current && innerRef.current && momentumRaf.current === 0) {
+      if (visible && !isHovered.current && !isDragging.current && scrollRef.current && momentumRaf.current === 0) {
         const dir = index % 2 === 0 ? 1 : -1;
         offset += dt * 0.03;
         const px = Math.floor(offset);
@@ -149,7 +159,10 @@ export default function DesignSection({
           offset -= px;
           checkLoop();
         }
-        innerRef.current.style.transform = `translateX(${-offset * dir}px)`;
+        // Sub-pixel transform only on desktop — skip on mobile to reduce GPU work
+        if (!isMobile.current && innerRef.current) {
+          innerRef.current.style.transform = `translateX(${-offset * dir}px)`;
+        }
       }
       if (visible) autoScrollRaf.current = requestAnimationFrame(autoScroll);
     }
@@ -178,11 +191,20 @@ export default function DesignSection({
   function checkLoop() {
     const el = scrollRef.current;
     if (!el) return;
-    const oneSetWidth = el.scrollWidth / 3;
-    if (el.scrollLeft >= oneSetWidth * 2) {
-      el.scrollLeft -= oneSetWidth;
-    } else if (el.scrollLeft <= 0) {
-      el.scrollLeft += oneSetWidth;
+    const copies = isMobile.current ? 2 : 3;
+    const oneSetWidth = el.scrollWidth / copies;
+    if (copies === 2) {
+      if (el.scrollLeft >= oneSetWidth) {
+        el.scrollLeft -= oneSetWidth;
+      } else if (el.scrollLeft <= 0) {
+        el.scrollLeft += oneSetWidth;
+      }
+    } else {
+      if (el.scrollLeft >= oneSetWidth * 2) {
+        el.scrollLeft -= oneSetWidth;
+      } else if (el.scrollLeft <= 0) {
+        el.scrollLeft += oneSetWidth;
+      }
     }
   }
 
@@ -254,8 +276,8 @@ export default function DesignSection({
                   onPointerLeave={(e) => { onPointerUp(e); isHovered.current = false; }}
                   onScroll={checkLoop}
                 >
-                  <div ref={innerRef} className="flex gap-3" style={{ willChange: 'transform' }}>
-                    {[0, 1, 2].map((copy) =>
+                  <div ref={innerRef} className="flex gap-3">
+                    {Array.from({ length: copies }, (_, copy) =>
                       group.images.map((img, j) => (
                         <ImageThumb
                           key={`${copy}-${j}`}
