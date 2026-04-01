@@ -59,6 +59,7 @@ export default function ToolEmbed({ url, title, accentColor }: ToolEmbedProps) {
           style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.3s ease" }}
           onLoad={handleLoad}
           allow="clipboard-read; clipboard-write"
+          sandbox="allow-scripts allow-same-origin allow-popups"
         />
       </div>
     </div>
