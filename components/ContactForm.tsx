@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-const FORMSPREE_ID = "xojkaqeb";
-
 const inputClass =
   "w-full bg-surface border-2 border-white/10 rounded-xl px-5 py-3.5 text-ink placeholder:text-muted text-sm font-medium focus:outline-none focus:border-lime transition-colors";
 
@@ -18,10 +16,9 @@ export default function ContactForm() {
     const data = new FormData(form);
 
     try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         body: data,
-        headers: { Accept: "application/json" },
       });
 
       if (res.ok) {
