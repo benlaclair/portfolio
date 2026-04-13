@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import DotGrid from "@/components/DotGrid";
-import { SCRAMBLE_CHARS } from "@/data/constants";
+import { SCRAMBLE_CHARS, ANIMATION_TIMING } from "@/data/constants";
 
 const tags = ["UX/UI Design", "Brand Identity", "Web Development", "AI Integration"];
 
@@ -199,7 +199,7 @@ export default function HeroSection() {
     let scrambleTimer: ReturnType<typeof setTimeout>;
 
     const RESOLVE_AT = [350, 500, 650, 820];
-    const scrambleInterval = mobile ? 80 : 45;
+    const scrambleInterval = mobile ? ANIMATION_TIMING.scrambleMobile : ANIMATION_TIMING.scrambleDesktop;
 
     function runScramble(onDone?: () => void) {
       clearInterval(scrambleTick);

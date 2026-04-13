@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import DotGrid from "@/components/DotGrid";
-import { SCRAMBLE_CHARS } from "@/data/constants";
+import { SCRAMBLE_CHARS, ANIMATION_TIMING } from "@/data/constants";
 
 const BURST_PATTERNS = [
   [
@@ -67,7 +67,7 @@ export default function FullGlitchDemo() {
             setTimeout(nextFrame, 50);
           }, 400);
         }
-      }, mobile ? 90 : 45);
+      }, mobile ? ANIMATION_TIMING.scrambleMobile : ANIMATION_TIMING.scrambleDesktop);
 
       timer = setTimeout(runCycle, mobile ? 5000 + Math.random() * 4000 : 3000 + Math.random() * 2500);
     }

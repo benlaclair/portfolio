@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SCRAMBLE_CHARS } from "@/data/constants";
+import { SCRAMBLE_CHARS, ANIMATION_TIMING } from "@/data/constants";
 
 export default function MiniGlitchDemo() {
   const [glitching, setGlitching] = useState(false);
@@ -32,7 +32,7 @@ export default function MiniGlitchDemo() {
             setTimeout(() => setGlitching(false), 180);
           }, 600);
         }
-      }, mobile ? 80 : 40);
+      }, mobile ? ANIMATION_TIMING.scrambleMobile : ANIMATION_TIMING.scrambleDesktop);
 
       timer = setTimeout(runCycle, mobile ? 6000 + Math.random() * 5000 : 4000 + Math.random() * 3000);
     }

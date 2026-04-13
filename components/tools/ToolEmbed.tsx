@@ -9,17 +9,19 @@ interface ToolEmbedProps {
 }
 
 export default function ToolEmbed({ url, title, accentColor }: ToolEmbedProps) {
-  const [loaded, setLoaded] = useState(false);
+  const [status, setStatus] = useState<"loading" | "loaded" | "error">("loading");
   const fallbackTimer = useRef<ReturnType<typeof setTimeout>>(null);
 
   useEffect(() => {
-    fallbackTimer.current = setTimeout(() => setLoaded(true), 8000);
+    fallbackTimer.current = setTimeout(() => {
+      setStatus((prev) => (prev === "loading" ? "error" : prev));
+    }, 10000);
     return () => { if (fallbackTimer.current) clearTimeout(fallbackTimer.current); };
   }, []);
 
   const handleLoad = () => {
     if (fallbackTimer.current) clearTimeout(fallbackTimer.current);
-    setLoaded(true);
+    setStatus("loaded");
   };
 
   return (
@@ -44,7 +46,7 @@ export default function ToolEmbed({ url, title, accentColor }: ToolEmbedProps) {
 
       {/* Iframe */}
       <div className="relative bg-[#0a0d12] aspect-[16/10]">
-        {!loaded && (
+        {status === "loading" && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <div className="w-5 h-5 border-2 border-white/20 border-t-lime rounded-full animate-spin mb-3 mx-auto" />
@@ -52,11 +54,26 @@ export default function ToolEmbed({ url, title, accentColor }: ToolEmbedProps) {
             </div>
           </div>
         )}
+        {status === "error" && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-sm text-muted mb-3">Tool unavailable</p>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-bold text-lime hover:text-ink transition-colors"
+              >
+                Open externally ↗
+              </a>
+            </div>
+          </div>
+        )}
         <iframe
           src={url}
           title={title}
           className="w-full h-full border-0"
-          style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.3s ease" }}
+          style={{ opacity: status === "loaded" ? 1 : 0, transition: "opacity 0.3s ease" }}
           onLoad={handleLoad}
           allow="clipboard-read; clipboard-write"
           sandbox="allow-scripts allow-same-origin allow-popups"
