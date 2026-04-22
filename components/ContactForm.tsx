@@ -1,14 +1,13 @@
 "use client";
 
-import { useState } from "react";
-
-const FORMSPREE_ID = "xojkaqeb";
+import { useState, useRef } from "react";
 
 const inputClass =
   "w-full bg-surface border-2 border-white/10 rounded-xl px-5 py-3.5 text-ink placeholder:text-muted text-sm font-medium focus:outline-none focus:border-lime transition-colors";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const nameRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,10 +17,9 @@ export default function ContactForm() {
     const data = new FormData(form);
 
     try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         body: data,
-        headers: { Accept: "application/json" },
       });
 
       if (res.ok) {
@@ -41,7 +39,10 @@ export default function ContactForm() {
         <p className="text-2xl font-extrabold text-ink mb-2">Message sent!</p>
         <p className="text-sm text-muted mb-4">I&apos;ll get back to you soon.</p>
         <button
-          onClick={() => setStatus("idle")}
+          onClick={() => {
+            setStatus("idle");
+            requestAnimationFrame(() => nameRef.current?.focus());
+          }}
           className="text-sm font-bold text-muted hover:text-ink transition-colors"
         >
           Send another →
@@ -57,6 +58,7 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
+          ref={nameRef}
           type="text"
           name="name"
           placeholder="Your name"

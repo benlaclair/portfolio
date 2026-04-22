@@ -16,7 +16,18 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
     const RADIUS = 1.5;
     const BASE_A = 0.07;
     const WAVE_A = 0.22;
-    let frameCount = 0;
+    const BURST_CLUSTER_MIN = 2;
+    const BURST_CLUSTER_MAX = 4;
+    const BURST_RADIUS_MIN = 50;
+    const BURST_RADIUS_MAX = 130;
+    const BURST_DURATION_MIN = 0.25;
+    const BURST_DURATION_MAX = 0.45;
+    const BURST_SPREAD_MIN = 0.04;
+    const BURST_SPREAD_MAX = 0.18;
+    const BURST_WINDOW_MIN = 0.6;
+    const BURST_WINDOW_MAX = 1.0;
+    const BURST_COOLDOWN_MIN = 1.5;
+    const BURST_COOLDOWN_MAX = 3.5;
 
     type Cluster = { cx: number; cy: number; r: number; startT: number; duration: number };
     let clusters: Cluster[] = [];
@@ -27,7 +38,7 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
     let burstEndAt = 0;
     let nextClusterAt = 0;
     let clustersLeft = 0;
-    let nextBurstAt = 1.5;
+    let nextBurstAt = BURST_COOLDOWN_MIN;
     let origin = -1;
 
     function resize() {
@@ -86,16 +97,15 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
     // Desktop: full animated dot grid with cluster bursts
     function tick(now: number) {
       if (!ctx) return;
-      frameCount++;
       if (origin < 0) origin = now;
       const t = (now - origin) / 1000;
       ctx.clearRect(0, 0, w, h);
 
       if (!burstActive && t >= nextBurstAt) {
         burstActive = true;
-        clustersLeft = 2 + Math.floor(Math.random() * 4);
+        clustersLeft = BURST_CLUSTER_MIN + Math.floor(Math.random() * BURST_CLUSTER_MAX);
         nextClusterAt = t;
-        burstEndAt = t + 0.6 + Math.random() * 1.0;
+        burstEndAt = t + BURST_WINDOW_MIN + Math.random() * BURST_WINDOW_MAX;
       }
 
       if (burstActive) {
@@ -103,17 +113,17 @@ export default function DotGrid({ showDots = true }: { showDots?: boolean }) {
           clusters.push({
             cx: Math.random() * w,
             cy: Math.random() * h,
-            r: 50 + Math.random() * 130,
+            r: BURST_RADIUS_MIN + Math.random() * BURST_RADIUS_MAX,
             startT: t,
-            duration: 0.25 + Math.random() * 0.45,
+            duration: BURST_DURATION_MIN + Math.random() * BURST_DURATION_MAX,
           });
           clustersLeft--;
-          nextClusterAt += 0.04 + Math.random() * 0.18;
+          nextClusterAt += BURST_SPREAD_MIN + Math.random() * BURST_SPREAD_MAX;
         }
         clusters = clusters.filter(c => t - c.startT < c.duration);
         if (t >= burstEndAt && clusters.length === 0) {
           burstActive = false;
-          nextBurstAt = t + 1.5 + Math.random() * 3.5;
+          nextBurstAt = t + BURST_COOLDOWN_MIN + Math.random() * BURST_COOLDOWN_MAX;
         }
       } else {
         clusters = clusters.filter(c => t - c.startT < c.duration);

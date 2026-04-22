@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 
 export default function Lightbox({
   src,
@@ -43,12 +44,18 @@ export default function Lightbox({
       </button>
 
       {/* Image */}
-      <img
-        src={src}
-        alt={alt}
-        className="relative max-w-[92vw] max-h-[90vh] object-contain rounded-xl"
+      <div
+        className="relative max-w-[92vw] max-h-[90vh] w-full h-full"
         onClick={(e) => e.stopPropagation()}
-      />
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(max-width: 768px) 92vw, 80vw"
+          className="object-contain rounded-xl"
+        />
+      </div>
     </div>
   );
 }

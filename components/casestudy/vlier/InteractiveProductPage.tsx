@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 // Vlier design tokens — authentic to the actual deliverable
 const NAVY = "#142559";
-const NAVY_DARK = "#0e1b45";
 const TEAL = "#00A491";
 const TH_BG = "#1B4F72";
 const OFF_WHITE = "#E5E8E8";
@@ -82,18 +82,8 @@ export default function InteractiveProductPage() {
   const [filter, setFilter] = useState<"all" | "ansi" | "metric">("all");
   const [selectedPart, setSelectedPart] = useState<{ tableId: string; row: RowData } | null>(null);
 
-  const [inchVal, setInchVal] = useState("");
-  const [mmVal, setMmVal] = useState("");
-  const [lbfVal, setLbfVal] = useState("");
-  const [nVal, setNVal] = useState("");
-
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  const [conversion, setConversion] = useState({ inch: "", mm: "", lbf: "", n: "" });
+  const isMobile = useIsMobile();
 
   const toggleAccordion = useCallback((id: string) => {
     setOpenAccordions((prev) => {
@@ -118,10 +108,10 @@ export default function InteractiveProductPage() {
     if (f === "all") setOpenAccordions(new Set(ALL_TABLES.map((t) => t.id)));
   }, []);
 
-  const handleInch = (v: string) => { setInchVal(v); const n = parseFloat(v); setMmVal(isNaN(n) ? "" : (n * 25.4).toFixed(3)); };
-  const handleMm = (v: string) => { setMmVal(v); const n = parseFloat(v); setInchVal(isNaN(n) ? "" : (n / 25.4).toFixed(4)); };
-  const handleLbf = (v: string) => { setLbfVal(v); const n = parseFloat(v); setNVal(isNaN(n) ? "" : (n * 4.44822).toFixed(3)); };
-  const handleN = (v: string) => { setNVal(v); const n = parseFloat(v); setLbfVal(isNaN(n) ? "" : (n / 4.44822).toFixed(3)); };
+  const handleInch = (v: string) => { const n = parseFloat(v); setConversion((c) => ({ ...c, inch: v, mm: isNaN(n) ? "" : (n * 25.4).toFixed(3) })); };
+  const handleMm = (v: string) => { const n = parseFloat(v); setConversion((c) => ({ ...c, mm: v, inch: isNaN(n) ? "" : (n / 25.4).toFixed(4) })); };
+  const handleLbf = (v: string) => { const n = parseFloat(v); setConversion((c) => ({ ...c, lbf: v, n: isNaN(n) ? "" : (n * 4.44822).toFixed(3) })); };
+  const handleN = (v: string) => { const n = parseFloat(v); setConversion((c) => ({ ...c, n: v, lbf: isNaN(n) ? "" : (n / 4.44822).toFixed(3) })); };
 
   const visibleTables = ALL_TABLES.filter((t) => {
     if (filter === "ansi") return t.type === "ansi";
@@ -400,11 +390,11 @@ export default function InteractiveProductPage() {
                   Metric &amp; Inch conversion:
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, padding: isMobile ? "10px 8px" : "14px 10px" }}>
-                  <input type="number" placeholder="X" value={inchVal} onChange={(e) => handleInch(e.target.value)}
+                  <input type="number" placeholder="X" value={conversion.inch} onChange={(e) => handleInch(e.target.value)}
                     style={{ flex: 1, padding: "8px 10px", border: `1px solid ${NAVY}`, fontSize: 13, fontFamily: FONT, outline: "none", minWidth: 0, textAlign: "center" }} />
                   <span style={{ fontSize: 12, color: "#333", fontFamily: FONT, flexShrink: 0 }}>Inch</span>
                   <span style={{ fontSize: 16, fontWeight: 700, color: NAVY }}>=</span>
-                  <input type="number" placeholder="X" value={mmVal} onChange={(e) => handleMm(e.target.value)}
+                  <input type="number" placeholder="X" value={conversion.mm} onChange={(e) => handleMm(e.target.value)}
                     style={{ flex: 1, padding: "8px 10px", border: `1px solid ${NAVY}`, fontSize: 13, fontFamily: FONT, outline: "none", minWidth: 0, textAlign: "center" }} />
                   <span style={{ fontSize: 12, color: "#333", fontFamily: FONT, flexShrink: 0 }}>mm</span>
                 </div>
@@ -414,11 +404,11 @@ export default function InteractiveProductPage() {
                   Lbf/Newton Conversion:
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, padding: isMobile ? "10px 8px" : "14px 10px" }}>
-                  <input type="number" placeholder="X" value={lbfVal} onChange={(e) => handleLbf(e.target.value)}
+                  <input type="number" placeholder="X" value={conversion.lbf} onChange={(e) => handleLbf(e.target.value)}
                     style={{ flex: 1, padding: "8px 10px", border: `1px solid ${NAVY}`, fontSize: 13, fontFamily: FONT, outline: "none", minWidth: 0, textAlign: "center" }} />
                   <span style={{ fontSize: 12, color: "#333", fontFamily: FONT, flexShrink: 0 }}>lbf</span>
                   <span style={{ fontSize: 16, fontWeight: 700, color: NAVY }}>=</span>
-                  <input type="number" placeholder="X" value={nVal} onChange={(e) => handleN(e.target.value)}
+                  <input type="number" placeholder="X" value={conversion.n} onChange={(e) => handleN(e.target.value)}
                     style={{ flex: 1, padding: "8px 10px", border: `1px solid ${NAVY}`, fontSize: 13, fontFamily: FONT, outline: "none", minWidth: 0, textAlign: "center" }} />
                   <span style={{ fontSize: 12, color: "#333", fontFamily: FONT, flexShrink: 0 }}>N</span>
                 </div>

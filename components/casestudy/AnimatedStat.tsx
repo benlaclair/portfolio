@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useInView } from "@/hooks/useInView";
-import { SCRAMBLE_CHARS } from "@/data/constants";
+import { SCRAMBLE_CHARS, ANIMATION_TIMING } from "@/data/constants";
 
 export default function AnimatedStat({ value, suffix, label, delay, accentColor }: {
   value: string;
@@ -52,7 +52,7 @@ export default function AnimatedStat({ value, suffix, label, delay, accentColor 
         clearInterval(interval);
         setDisplay(value);
       }
-    }, mobile ? 80 : 40);
+    }, mobile ? ANIMATION_TIMING.scrambleMobile : ANIMATION_TIMING.scrambleDesktop);
 
     return () => clearInterval(interval);
   }, [inView, value, isNumeric]);

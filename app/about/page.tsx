@@ -155,9 +155,9 @@ export default function AboutPage() {
 
           {/* Skills */}
           <div>
-            <h2 className="text-xs font-bold text-muted uppercase tracking-[0.2em] mb-6">
+            <h3 className="text-xs font-bold text-muted uppercase tracking-[0.2em] mb-6">
               Tools & Skills
-            </h2>
+            </h3>
             <div className="flex flex-wrap gap-2">
               {skills.map((skill) => (
                 <span
@@ -180,6 +180,7 @@ export default function AboutPage() {
           <h2 className="text-xs font-bold text-muted uppercase tracking-[0.2em] mb-10">
             Experience & Education
           </h2>
+
           <div className="flex flex-col">
             {experience.map((item, i) => (
               <div key={i} className="flex gap-6">

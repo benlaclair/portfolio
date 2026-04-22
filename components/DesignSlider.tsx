@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 import { DESIGN_GROUPS } from "@/data/graphicDesign";
+import { useLoopingScroll } from "@/hooks/useLoopingScroll";
 
 // Grab a mix of images from all groups
 const SLIDER_IMAGES = DESIGN_GROUPS.flatMap((g) =>
@@ -11,72 +11,7 @@ const SLIDER_IMAGES = DESIGN_GROUPS.flatMap((g) =>
 );
 
 export default function DesignSlider() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el || !innerRef.current) return;
-
-    // Jump to middle copy
-    requestAnimationFrame(() => {
-      if (!scrollRef.current) return;
-      const oneSetWidth = scrollRef.current.scrollWidth / 3;
-      scrollRef.current.scrollLeft = oneSetWidth;
-    });
-
-    let lastFrame = 0;
-    let offset = 0;
-
-    function checkLoop() {
-      const el = scrollRef.current;
-      if (!el) return;
-      const oneSetWidth = el.scrollWidth / 3;
-      if (el.scrollLeft >= oneSetWidth * 2) {
-        el.scrollLeft -= oneSetWidth;
-      } else if (el.scrollLeft <= 0) {
-        el.scrollLeft += oneSetWidth;
-      }
-    }
-
-    let visible = true;
-
-    function autoScroll(now: number) {
-      if (!lastFrame) lastFrame = now;
-      const dt = Math.min(now - lastFrame, 50);
-      lastFrame = now;
-      if (scrollRef.current && innerRef.current) {
-        offset += dt * 0.03;
-        const px = Math.floor(offset);
-        if (px >= 1) {
-          scrollRef.current.scrollLeft += px;
-          offset -= px;
-          checkLoop();
-        }
-        innerRef.current.style.transform = `translateX(${-offset}px)`;
-      }
-      if (visible) raf = requestAnimationFrame(autoScroll);
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting;
-        if (visible) { lastFrame = 0; raf = requestAnimationFrame(autoScroll); }
-        else cancelAnimationFrame(raf);
-      },
-      { threshold: 0 }
-    );
-    observer.observe(el);
-
-    let raf = requestAnimationFrame(autoScroll);
-    el.addEventListener("scroll", checkLoop);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      observer.disconnect();
-      el.removeEventListener("scroll", checkLoop);
-    };
-  }, []);
+  const { scrollRef, innerRef } = useLoopingScroll("right");
 
   return (
     <section className="pb-20 fade-up-2">
