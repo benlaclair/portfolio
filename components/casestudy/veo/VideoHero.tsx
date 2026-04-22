@@ -53,6 +53,7 @@ export default function VideoHero() {
           loop
           playsInline
           preload="metadata"
+          poster="/videos/veo-olympics-hero-poster.jpg"
           className="w-full aspect-video bg-[#0a0d12] object-cover"
           onError={() => setHasError(true)}
         >
