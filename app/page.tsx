@@ -1,7 +1,7 @@
 import HeroSection from "@/components/HeroSection";
 import MarqueeBanner from "@/components/MarqueeBanner";
 import WorkSlider from "@/components/WorkSlider";
-import DesignSlider from "@/components/DesignSlider";
+import DesignFeature from "@/components/DesignFeature";
 import ToolsSlider from "@/components/ToolsSlider";
 import Link from "next/link";
 
@@ -14,8 +14,8 @@ export default function HomePage() {
       {/* Work slider */}
       <WorkSlider />
 
-      {/* Design slider */}
-      <DesignSlider />
+      {/* Design feature — standout section */}
+      <DesignFeature />
 
       {/* Tools slider */}
       <ToolsSlider />
