@@ -1,14 +1,45 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
 import DotGrid from "@/components/DotGrid";
 import { PROJECTS } from "@/data/projects";
+import { DESIGN_GROUPS } from "@/data/graphicDesign";
 
 type Filter = "All" | "UI/UX" | "Branding";
 const filters: Filter[] = ["All", "UI/UX", "Branding"];
+
+const totalDesigns = DESIGN_GROUPS.reduce((sum, g) => sum + g.images.length, 0);
+
+const MOSAIC = [
+  {
+    src: "/graphics/Client Work/imgi_8_d26KJYegtMtfkKLK.webp",
+    alt: "College Basketball Finals 2024 poster featuring multiple university players and trophy",
+  },
+  {
+    src: "/graphics/esports/imgi_17_WGJ6ZbI8G5KHWS5c (1).webp",
+    alt: "Dark metallic wolf shield esports logo with circular digital ring and smoke",
+  },
+  {
+    src: "/graphics/Educational Projects/imgi_26_48dPyzn0NgPrB43B.webp",
+    alt: "Retro Vision neon outlined typography on dark starry space background",
+  },
+  {
+    src: "/graphics/Client Work/imgi_35_yjlXqmf3wagmBbVf.webp",
+    alt: "Holiday Face-Off hockey poster with four players and team logos on navy",
+  },
+  {
+    src: "/graphics/esports/imgi_15_PHrjrzpkWThxU8dW (1).webp",
+    alt: "Magenta and dark purple 3D North Keeb text with glowing geometric shapes",
+  },
+  {
+    src: "/graphics/Educational Projects/imgi_3_0YOtGBhlKpAem5sW.webp",
+    alt: "Pink and black Adidas Originals windbreaker with paint splatter effects",
+  },
+];
 
 export default function WorkPage() {
   const [activeFilter, setActiveFilter] = useState<Filter>("All");
@@ -54,22 +85,6 @@ export default function WorkPage() {
           </span>
         </div>
 
-        {/* Graphic design link — mobile only, shown before project grid */}
-        <Link
-          href="/work/graphic-design"
-          className="md:hidden group flex items-center justify-between bg-surface border border-white/8 rounded-2xl px-5 py-4 hover:border-white/20 transition-all duration-300 mb-8 fade-up-1"
-        >
-          <div>
-            <p className="text-base font-extrabold text-ink group-hover:text-grad transition-colors">
-              Graphic Design
-            </p>
-            <p className="text-xs text-muted">
-              Social media, print, brand assets & more
-            </p>
-          </div>
-          <span className="text-xl text-muted group-hover:text-ink transition-colors ml-4">→</span>
-        </Link>
-
         {/* Projects grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-up-2">
           <AnimatePresence mode="wait">
@@ -87,24 +102,50 @@ export default function WorkPage() {
           </AnimatePresence>
         </div>
 
-        {/* Graphic design gallery link — desktop only, at bottom */}
-        <div className="hidden md:block mt-20 pt-12 border-t border-white/8 fade-up-3">
-          <p className="text-xs font-bold tracking-[0.2em] text-muted uppercase mb-4">
-            Also
-          </p>
-          <Link
-            href="/work/graphic-design"
-            className="group flex items-center justify-between bg-surface border border-white/8 rounded-2xl px-8 py-6 hover:border-white/20 transition-all duration-300"
-          >
-            <div>
-              <p className="text-xl font-extrabold text-ink mb-1 group-hover:text-grad transition-colors">
-                Graphic Design
-              </p>
-              <p className="text-sm text-muted">
-                Social media, print, brand assets & digital collateral
-              </p>
+        {/* Graphic design feature — visual mosaic with stats and CTA */}
+        <div className="mt-20 md:mt-24 pt-12 border-t border-white/8 fade-up-3">
+          <Link href="/work/graphic-design" className="group block">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+              <div>
+                <p className="text-grad text-xs font-extrabold tracking-[0.2em] uppercase mb-3">
+                  Also — Graphic Design
+                </p>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight group-hover:text-grad transition-colors">
+                  {totalDesigns} pieces. {DESIGN_GROUPS.length} industries.
+                </h2>
+                <p className="text-sm md:text-base text-muted mt-3 max-w-xl leading-relaxed">
+                  Stream overlays, event posters, tournament branding, email campaigns, wayfinding signage, and brand systems across esports, education, and client work.
+                </p>
+              </div>
             </div>
-            <span className="text-2xl text-muted group-hover:text-ink transition-colors ml-6">→</span>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-8">
+              {MOSAIC.map((img) => (
+                <div
+                  key={img.src}
+                  className="relative aspect-[4/5] md:aspect-[3/4] rounded-xl overflow-hidden bg-surface"
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 768px) 45vw, 30vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <p className="text-sm text-muted">
+                Six featured pieces. Click through to explore all {totalDesigns}.
+              </p>
+              <span className="bg-grad text-[#080B0F] font-extrabold px-6 py-3 rounded-full text-sm group-hover:bg-white transition-colors duration-300 inline-flex items-center gap-2">
+                Explore all design
+                <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+              </span>
+            </div>
           </Link>
         </div>
 
