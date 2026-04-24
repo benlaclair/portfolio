@@ -18,26 +18,32 @@ const MOSAIC = [
   {
     src: "/graphics/Client Work/imgi_8_d26KJYegtMtfkKLK.webp",
     alt: "College Basketball Finals 2024 poster featuring multiple university players and trophy",
+    w: 1080, h: 1242,
   },
   {
     src: "/graphics/esports/imgi_17_WGJ6ZbI8G5KHWS5c (1).webp",
     alt: "Dark metallic wolf shield esports logo with circular digital ring and smoke",
+    w: 3000, h: 1000,
   },
   {
     src: "/graphics/Educational Projects/imgi_26_48dPyzn0NgPrB43B.webp",
     alt: "Retro Vision neon outlined typography on dark starry space background",
+    w: 3556, h: 2000,
   },
   {
     src: "/graphics/Client Work/imgi_35_yjlXqmf3wagmBbVf.webp",
     alt: "Holiday Face-Off hockey poster with four players and team logos on navy",
+    w: 2000, h: 3067,
   },
   {
-    src: "/graphics/esports/imgi_15_PHrjrzpkWThxU8dW (1).webp",
-    alt: "Magenta and dark purple 3D North Keeb text with glowing geometric shapes",
+    src: "/graphics/Educational Projects/imgi_32_QQyeeIs0RIHttwB2.webp",
+    alt: "Line 7 fashion poster with black and white yin-yang style letter composition",
+    w: 1920, h: 2485,
   },
   {
     src: "/graphics/Educational Projects/imgi_3_0YOtGBhlKpAem5sW.webp",
     alt: "Pink and black Adidas Originals windbreaker with paint splatter effects",
+    w: 800, h: 800,
   },
 ];
 
@@ -119,18 +125,19 @@ export default function WorkPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-8">
+            <div className="columns-2 md:columns-3 gap-3 md:gap-4 mb-8">
               {MOSAIC.map((img) => (
                 <div
                   key={img.src}
-                  className="relative aspect-[4/5] md:aspect-[3/4] rounded-xl overflow-hidden bg-surface"
+                  className="mb-3 md:mb-4 break-inside-avoid rounded-xl overflow-hidden bg-surface"
                 >
                   <Image
                     src={img.src}
                     alt={img.alt}
-                    fill
+                    width={img.w}
+                    height={img.h}
                     sizes="(max-width: 768px) 45vw, 30vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="block w-full h-auto transition-transform duration-500 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
                 </div>
